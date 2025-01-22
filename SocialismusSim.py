@@ -1,28 +1,36 @@
-# importuješ klundu
+# importuješ moduly
 
 import pyautogui
 import time
 from colorama import ansi, Fore
 
+
 # KONFIGURACE
-automatickynapsat = False
+automatickynapsat = True
 nazevvokna = "Feather Client 1.21.4"
 player2BezKoncovky = "Ocasníčk"
 player2ek = "Ocasníček"
 player2nick = "Ocasnik"
 
-#uvodni zprava a zadani promennych uzivatelem
-print("\033[31;49;1m" + "===", "\033[33;49;1m" + "Výpočet stejné hodnoty měny (socialismus simulátor)", "\033[31;49;1m" + "===")
-p1 = int(input('\033[34;49;1m' + "Tvoje peníze:" + "\033[0m"))
-p2 = int(input("\033[33;49;1m" + player2BezKoncovky + "ovi peníze: " + "\033[0m"))
+cervena = "\033[31;49;1m"
+zluta = "\033[33;49;1m"
+modra = '\033[34;49;1m'
+zelena = "\033[32;49;1m"
+bila = "\033[0m"
+
+# Uvodni zprava a zadani promennych uzivatelem
+print(cervena + "===", zluta + "Výpočet stejné hodnoty měny (socialismus simulátor)", cervena + "===")
+p1 = int(input(modra + "Tvoje peníze:" + bila))
+p2 = int(input(zluta + player2BezKoncovky + "ovi peníze: " + bila))
 print("")
     
+# podmínky pro kokoty    
 if ((p1 <= 0) and (p2 <= 0)):
-    print("\033[31;49;1m" + player1,"a", player2ek + " jsou moc chudý!!!!!!!")
+    print(cervena + player1,"a", player2ek + " jsou moc chudý!!!!!!!")
     exit(1)
     
 if (p1 == p2):
-    print("\033[31;49;1m" + " seš piča? už máte stejně!!!!!!!")   
+    print(cervena + " seš piča? už máte stejně!!!!!!!")   
     exit(1)
 
 #vypocet
@@ -31,7 +39,7 @@ vysledek = abs(mezivysledek)
 
 # napíše zprávu kolik musíš dát
 if (p1 > p2):   
-    print("\033[32;49;1m" + "Musíš dát", vysledek,"€", player2BezKoncovky + "ovi")
+    print(bila + "Musíš dát", vysledek,"€", player2BezKoncovky + "ovi")
     print("")
     time.sleep(0.5)
 
@@ -46,7 +54,7 @@ if automatickynapsat == True and (p1 > p2):
     print("\033[32;49;1m" + "Počkej než se otevře minecraft...")
     time.sleep(0.5)
     print("")
-    print("\033[31;49;1m" + "===", "\033[33;49;1m" + "Výpočet stejné hodnoty měny (socialismus simulátor)", "\033[31;49;1m" + "===")
+    print(cervena + "===", zluta + "Výpočet stejné hodnoty měny (socialismus simulátor)", cervena + "===")
     time.sleep(0.3)
 
     # otevre mc
@@ -57,7 +65,7 @@ if automatickynapsat == True and (p1 > p2):
     time.sleep(0.4)
     pyautogui.press("esc")
     pyautogui.press("t")
-    pyautogui.write("/pay " + str(player2nick), str(vysledek))
+    pyautogui.write("/pay " + str(player2nick) + " " + str(vysledek))
     pyautogui.press("enter")
     exit
 
