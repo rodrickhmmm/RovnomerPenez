@@ -55,4 +55,4 @@ symbol (symbol měny)
 
 # Credits
 
-Vytvořeno Elektrikářem a Ajťákem (ten elektrikář toho udělal víc (xtomasnemec))
+Vytvořeno Ajťákem a Elektrikářem
