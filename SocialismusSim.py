@@ -35,7 +35,25 @@ def otazka1():
     else:
         print(cervena + "Neumíš psát???? Zadej prosím 'y' nebo 'n'." + bila)
         automatickynapsat = None
-        return otazka1()   
+        return otazka1()
+        
+# funkce na otevření mc
+def otevritmc():
+    try:
+        windows = pyautogui.getWindowsWithTitle(nazevvokna)
+        if not windows:
+            raise ValueError(f"Okno s názvem '{nazevvokna}' nebylo nalezeno.")  # Vlastní chyba, pokud je seznam prázdný
+    
+        Mc = windows[0]
+        Mc.activate()
+        print(f"Okno '{nazevvokna}' bylo úspěšně aktivováno.")
+
+    except ValueError as e:
+        print(e)  # Zobrazí vlastní zprávu při prázdném seznamu
+    except IndexError:
+        print("Chyba: Pokus o přístup k neexistujícímu oknu.")
+    except Exception as e:
+        print(f"Neočekávaná chyba: {e}")
     
 # Uvodni zprava a zadani promennych uzivatelem
 print(cervena + "===", zluta + "Výpočet stejné hodnoty měny (socialismus simulátor)", cervena + "===")
@@ -80,27 +98,7 @@ if automatickynapsat == True and (p1 > p2):
     print("")
     print(cervena + "===", zluta + "Výpočet stejné hodnoty měny (socialismus simulátor)", cervena + "===")
     time.sleep(0.3)
-
-    # otevre mc
-#   try:
-    windows = pyautogui.getWindowsWithTitle(nazevvokna)
-#        if not windows:
-#            raise ValueError(f"Okno s názvem '{nazevvokna}' nebylo nalezeno.")  # Vlastní chyba, pokud je seznam prázdný
-#    
-    Mc = windows[0]
-    Mc.activate()
-#        print(f"Okno '{nazevvokna}' bylo úspěšně aktivováno.")
-#
-#    except ValueError as e:
-#        print(e)  # Zobrazí vlastní zprávu při prázdném seznamu
-#    except IndexError:
-#        print("Chyba: Pokus o přístup k neexistujícímu oknu.")
-#    except Exception as e:
-#        print(f"Neočekávaná chyba: {e}")
-
-    #automaticke napsani prikazu do chatu
-    Mc = windows[0]
-    Mc.activate()
+    otevritmc()
     time.sleep(0.4)
     pyautogui.press("esc")
     pyautogui.press("t")
@@ -109,6 +107,13 @@ if automatickynapsat == True and (p1 > p2):
     exit
 
 if automatickynapsat == True and (p1 < p2):
+    print("\033[32;49;1m" + "Počkej než se otevře minecraft...")
+    time.sleep(0.5)
+    print("")
+    print(cervena + "===", zluta + "Výpočet stejné hodnoty měny (socialismus simulátor)", cervena + "===")
+    time.sleep(0.3)
+    otevritmc()
+    time.sleep(0.4)
     pyautogui.press("esc")
     pyautogui.press("t")
     pyautogui.write(str(player2nick) + " pošli mně " + str(vysledek) + str(symbol))
