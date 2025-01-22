@@ -116,7 +116,7 @@ if automatickynapsat == True and (p1 < p2):
     time.sleep(0.4)
     pyautogui.press("esc")
     pyautogui.press("t")
-    pyautogui.write(str(player2nick) + " pošli mně " + str(vysledek) + str(symbol))
+    pyautogui.write(str(player2nick) + " posli mne " + str(vysledek) + str(symbol) + "€")
     pyautogui.press("enter")
 
 if automatickynapsat == False and (p1 > p2):
