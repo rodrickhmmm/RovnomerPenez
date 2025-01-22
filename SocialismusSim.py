@@ -39,7 +39,7 @@ def otazka1():
     
 # Uvodni zprava a zadani promennych uzivatelem
 print(cervena + "===", zluta + "Výpočet stejné hodnoty měny (socialismus simulátor)", cervena + "===")
-p1 = float(input(modra + "Tvoje peníze:" + bila))
+p1 = float(input(modra + "Tvoje peníze: " + bila))
 p2 = float(input(zluta + player2BezKoncovky + "ovi peníze: " + bila))
 print("")
     
@@ -82,23 +82,25 @@ if automatickynapsat == True and (p1 > p2):
     time.sleep(0.3)
 
     # otevre mc
-    try:
-        windows = pyautogui.getWindowsWithTitle(nazevvokna)
-        if not windows:
-            raise ValueError(f"Okno s názvem '{nazevvokna}' nebylo nalezeno.")  # Vlastní chyba, pokud je seznam prázdný
-    
-        Mc = windows[0]
-        Mc.activate()
-        print(f"Okno '{nazevvokna}' bylo úspěšně aktivováno.")
-
-    except ValueError as e:
-        print(e)  # Zobrazí vlastní zprávu při prázdném seznamu
-    except IndexError:
-        print("Chyba: Pokus o přístup k neexistujícímu oknu.")
-    except Exception as e:
-        print(f"Neočekávaná chyba: {e}")
+#   try:
+    windows = pyautogui.getWindowsWithTitle(nazevvokna)
+#        if not windows:
+#            raise ValueError(f"Okno s názvem '{nazevvokna}' nebylo nalezeno.")  # Vlastní chyba, pokud je seznam prázdný
+#    
+    Mc = windows[0]
+    Mc.activate()
+#        print(f"Okno '{nazevvokna}' bylo úspěšně aktivováno.")
+#
+#    except ValueError as e:
+#        print(e)  # Zobrazí vlastní zprávu při prázdném seznamu
+#    except IndexError:
+#        print("Chyba: Pokus o přístup k neexistujícímu oknu.")
+#    except Exception as e:
+#        print(f"Neočekávaná chyba: {e}")
 
     #automaticke napsani prikazu do chatu
+    Mc = windows[0]
+    Mc.activate()
     time.sleep(0.4)
     pyautogui.press("esc")
     pyautogui.press("t")
