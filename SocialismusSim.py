@@ -20,8 +20,8 @@ bila = "\033[0m"
 
 # Uvodni zprava a zadani promennych uzivatelem
 print(cervena + "===", zluta + "Výpočet stejné hodnoty měny (socialismus simulátor)", cervena + "===")
-p1 = int(input(modra + "Tvoje peníze:" + bila))
-p2 = int(input(zluta + player2BezKoncovky + "ovi peníze: " + bila))
+p1 = float(input(modra + "Tvoje peníze:" + bila))
+p2 = float(input(zluta + player2BezKoncovky + "ovi peníze: " + bila))
 print("")
     
 # podmínky pro kokoty    
@@ -34,8 +34,8 @@ if (p1 == p2):
     exit(1)
 
 #vypocet
-mezivysledek = p1 - ((p1 + p2) / 2)
-vysledek = abs(mezivysledek)
+mezivysledek = float(p1 - ((p1 + p2) / 2))
+vysledek = float(abs(mezivysledek))
 
 # napíše zprávu kolik musíš dát
 if (p1 > p2):   
