@@ -1,17 +1,20 @@
+# Varování! Barvy se nezobrazujou ve starem cmd (od windows 10 a níž). Pro správné fungování se musí nainstalovat Microsoft Terminal z Microsoft Storu.
+
 # importuješ moduly
 
 import pyautogui
 import time
-from colorama import ansi, Fore
+from colorama import ansi
 
 
 # KONFIGURACE
-automatickynapsat = True
-nazevvokna = "Feather Client 1.21.4"
-player2BezKoncovky = "Ocasníčk"
-player2ek = "Ocasníček"
-player2nick = "Ocasnik"
+automatickynapsat = True # automaticky zapsat do minecraftu příkaz, true = ano, zapiš, false = ne, nezapisuj
+nazevvokna = "Feather Client 1.21.4" # název okna, které má skript otevřít - v mém případě Feather Client, normálně by mělo být Minecraft <dopln si verzi>
+player2BezKoncovky = "Ocasníčk" # jméno hráče 2 bez koncovky (pro lepší skloňování protože čeština lmao)
+player2ek = "Ocasníček" # jméno hráče 2
+player2nick = "Ocasnik" # nick hráče
 
+# KONFIGURACE BAREV 
 cervena = "\033[31;49;1m"
 zluta = "\033[33;49;1m"
 modra = '\033[34;49;1m'
@@ -33,7 +36,7 @@ if (p1 == p2):
     print(cervena + " seš piča? už máte stejně!!!!!!!")   
     exit(1)
 
-#vypocet
+# výpočet
 mezivysledek = float(p1 - ((p1 + p2) / 2))
 vysledek = float(abs(mezivysledek))
 
