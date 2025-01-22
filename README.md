@@ -15,3 +15,7 @@ player2ek = "Ocasníček" (Jméno s koncovkou -ek)
 player2nick = "Ocasnik" (Nick hráče)
 
 symbol (symbol měny)
+
+# Credits
+
+Vytvořeno Elektrikářem a Ajťákem (ten elektrikář toho udělal víc (xtomasnemec))
