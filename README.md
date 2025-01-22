@@ -1,4 +1,4 @@
-# Rovnoměr peněz
+# **Rovnoměr peněz**
 
 Hrajete na Minecraft serveru s kamarádem, kde si chcete udržet stejný zůstatek peněz, ale nechce se vám pokaždé manuálně počítat rozdíl? 
 Tento jednoduchý Python program vám s tím pomůže! 🚀
@@ -30,13 +30,14 @@ Automatické zadání příkazu: Možnost příkaz automaticky zadat přímo do 
 
 Jednoduché spuštění: Pomocí souboru Open.bat spustíte program jedním kliknutím.
 
+
 # Požadavky
 
-Python 3 nebo novější
+**Python 3** nebo **novější**
 
-Modul pyautogui - stačí otevřít soubor nainsttalovat moduly.bat, který automaticky daný modul nainstaluje
+Modul **pyautogui** - stačí otevřít soubor nainsttalovat moduly.bat, který automaticky daný modul nainstaluje
 
-Terminál (příkazová řádka) nebo soubor Open.bat pro spuštění programu
+**Terminál** (příkazový řádek)
 
 
 # Konfigurace
@@ -51,6 +52,7 @@ player2nick = "Ocasnik" (Nick hráče)
 
 symbol (symbol měny)
 
+
 # Credits
 
-Vytvořeno Elektrikářem a Ajťákem (ten elektrikář toho udělal víc (xtomasnemec) (sybau tome♥) )
+Vytvořeno Elektrikářem a Ajťákem (ten elektrikář toho udělal víc (xtomasnemec))
