@@ -1,3 +1,3 @@
 @echo off
-python SocialismusSim.py %*
+python Main.py %*
 pause
