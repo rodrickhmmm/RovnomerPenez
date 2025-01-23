@@ -2,9 +2,10 @@
 
 # importuješ moduly
 
-import pyautogui
+import json
 import time
 from colorama import ansi
+import pyautogui
 
 # KONFIGURACE
 nazevvokna = "Feather Client 1.21.4" # název okna, které má skript otevřít - v mém případě Feather Client, normálně by mělo být Minecraft <dopln si verzi>
@@ -12,6 +13,7 @@ player2BezKoncovky = "Ocasníčk" # jméno hráče 2 bez koncovky (pro lepší s
 player2ek = "Ocasníček" # jméno hráče 2
 player2nick = "Ocasnik" # nick hráče
 symbol = "€" # symbol měny
+jazyk = "data.json"
 
 
 # KONFIGURACE BAREV 
@@ -20,6 +22,13 @@ zluta = "\033[33;49;1m"
 modra = '\033[34;49;1m'
 zelena = "\033[32;49;1m"
 bila = "\033[0m"
+
+# Importace jazyka/dialektu do python souboru
+with open(jazyk, 'r', encoding='utf-8') as file:
+    translations = json.load(file)
+
+# Vytvoření lokálních proměnných dynamicky
+locals().update(translations)
 
 # deklarace var automatickynapsat
 
@@ -56,18 +65,18 @@ def otevritmc():
         print(f"Neočekávaná chyba: {e}")
     
 # Uvodni zprava a zadani promennych uzivatelem
-print(cervena + "===", zluta + "Výpočet stejné hodnoty měny (socialismus simulátor)", cervena + "===")
-p1 = float(input(modra + "Tvoje peníze: " + bila))
-p2 = float(input(zluta + player2BezKoncovky + "ovi peníze: " + bila))
+print(cervena + "===", zluta + nadpis, cervena + "===")
+p1 = float(input(modra + p1penize + bila))
+p2 = float(input(zluta + player2BezKoncovky + p2penizeovi + bila))
 print("")
     
 # podmínky pro kokoty    
 if ((p1 <= 0) and (p2 <= 0)):
-    print(cervena + player1,"a", player2ek + " jsou moc chudý!!!!!!!")
+    print(cervena + ty, a , player2ek + mocchudy)
     exit(1)
     
 if (p1 == p2):
-    print(cervena + " seš piča? už máte stejně!!!!!!!")   
+    print(cervena + matestejne)   
     exit(1)
 
 # výpočet
@@ -80,12 +89,12 @@ else:
 
 # napíše zprávu kolik musíš dát
 if (p1 > p2):   
-    print(bila + "Musíš dát", vysledek, symbol, player2BezKoncovky + "ovi")
+    print(bila + musisdat, vysledek, symbol, player2BezKoncovky + ovi)
     print("")
     time.sleep(0.5)
 
 if (p1 < p2):
-    print("\033[32;49;1m" + player2ek, "ti musí dát", vysledek, symbol)
+    print("\033[32;49;1m" + player2ek, timusidat, vysledek, symbol)
     print("")
     time.sleep(0.5)
 
@@ -93,7 +102,7 @@ otazka1()
 
 if automatickynapsat == True and (p1 > p2):
     # timeout
-    print("\033[32;49;1m" + "Počkej než se otevře minecraft...")
+    print("\033[32;49;1m" + ckjmc)
     time.sleep(0.5)
     print("")
     print(cervena + "===", zluta + "Výpočet stejné hodnoty měny (socialismus simulátor)", cervena + "===")
@@ -127,4 +136,5 @@ if automatickynapsat == False and (p1 > p2):
 if automatickynapsat == False and (p1 < p2):
     exit
     
+
 
