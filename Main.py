@@ -252,14 +252,16 @@ def calc():
         vysledek = int(mezivysledek2)
     else:
         vysledek = mezivysledek2
+        
+    clear()
 
     if (p1 > p2):   
-        print(bila + "Musíš dát", vysledek, symbol, player2BezKoncovky + "ovi")
+        print(zelena + "Musíš dát", vysledek, symbol, player2BezKoncovky + "ovi" + bila)
         input("Press Enter to continue...")
         clear()
 
     if (p1 < p2):
-        print("\033[32;49;1m" + player2ek, "ti musí dát", vysledek, symbol)
+        print(zelena + player2ek, "ti musí dát", vysledek, symbol + bila)
         input("Press Enter to continue...")
         clear()
 
