@@ -1,8 +1,9 @@
 {
   "nazevvokna": "Minecraft",
-  "player2BezKoncovky": "default_value",
-  "player2ek": "default_value",
-  "player2nick": "default_value",
+  "player2BezKoncovky": "Ocasníčk",
+  "player2ek": "Ocasníček",
+  "player2nick": "Ocasnik",
   "symbol": "coin",
-  "jazyk": "cz"
+  "jazyk": "cz",
+  "automatickynapsat": "true"
 }

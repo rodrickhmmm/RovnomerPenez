@@ -25,6 +25,7 @@ player2ek = config.get("player2ek", "default_value") # jméno hráče 2
 player2nick = config.get("player2nick", "default_value") # nick hráče
 symbol = config.get("symbol", "coin") # symbol měny
 jazyk = config.get("jazyk", "cz") # jazyk/dialekt (cz, mo - moravština, br - brněnština, ba - brainrot dialekt)
+automatickynapsat = config.get("automatickynapsat", False) # automatické napsání do chatu
 
 # KONFIGURACE BAREV 
 cervena = "\033[31;49;1m"
@@ -42,38 +43,64 @@ def clear():
 
 # importace jazyka/dialektu
 def importjazyka():
+    global nadpis, automatickynapsat, zpet, jazy, kalkulacka, p1penize, p2penizeovi, a, mocchudy, ty, matestejne, musisdat, ovi, timusidat, ckjmc, poslimechat, mcprikaz, chcescmddochatu, neumispsat, nenalezenookno, oknoaktivovano, nastaveni, vybrat, nenitu, zpatky, zmenajazyka
+
+    # Inicializace proměnných
+    nadpis = "Nadpis menu"
+    kalkulacka = "Kalkulačka"
+    p1penize = "Tvoje peníze: "
+    p2penizeovi = "ovi peníze: "
+    a = "a"
+    mocchudy = " jste moc chudý!!!!!!!"
+    ty = "ty"
+    matestejne = " seš piča? už máte stejně!!!!!!!"
+    musisdat = "Musíš dát"
+    ovi = "ovi"
+    timusidat = "ti musí dát"
+    ckjmc = "Počkej než se otevře minecraft..."
+    poslimechat = " posli mne "
+    mcprikaz = "Napiš do Minecraftu tento příkaz:"
+    chcescmddochatu = "Chceš, abych to za tebe napsal do chatu?"
+    neumispsat = "Neumíš psát???? Zadej prosím 'y' nebo 'n'."
+    nenalezenookno = "Okno s názvem '{nazevvokna}' nebylo nalezeno."
+    oknoaktivovano = "Okno '{nazevvokna}' bylo úspěšně aktivováno."
+    nastaveni = "Nastavení"
+    vybrat = "Vyber si: "
+    nenitu = "Neimplementováno"
+    zpatky = "Zpět"
+    zmenajazyka = "Jazyk byl změněn na Češtinu."
+    jazy = "Jazyky"
+    zpet = "Zpět"
+
     with open("jazyky/"+ jazyk + ".json", 'r', encoding='utf-8') as file:
         translations = json.load(file)
     locals().update(translations)
 
-    global nadpis, zpet, jazy, kalkulacka, p1penize, p2penizeovi, a, mocchudy, ty, matestejne, musisdat, ovi, timusidat, ckjmc, poslimechat, mcprikaz, chcescmddochatu, neumispsat, nenalezenookno, oknoaktivovano, nastaveni, vybrat, nenitu, zpatky, zmenajazyka
-
-    nadpis = translations.get("nadpis", "Nadpis menu")
-    kalkulacka = translations.get("kalkulacka", "Kalkulačka")
-    p1penize = translations.get("p1penize", "Tvoje peníze: ")
-    p2penizeovi = translations.get("p2penizeovi", "ovi peníze: ")
-    a = translations.get("a", "a")
-    mocchudy = translations.get("mocchudy", " jste moc chudý!!!!!!!")
-    ty = translations.get("ty", "ty")
-    matestejne = translations.get("matestejne", " seš piča? už máte stejně!!!!!!!")
-    musisdat = translations.get("musisdat", "Musíš dát")
-    ovi = translations.get("ovi", "ovi")
-    timusidat = translations.get("timusidat", "ti musí dát")
-    ckjmc = translations.get("ckjmc", "Počkej než se otevře minecraft...")
-    poslimechat = translations.get("poslimechat", " posli mne ")
-    mcprikaz = translations.get("mcprikaz", "Napiš do Minecraftu tento příkaz:")
-    chcescmddochatu = translations.get("chcescmddochatu", "Chceš, abych to za tebe napsal do chatu?")
-    neumispsat = translations.get("neumispsat", "Neumíš psát???? Zadej prosím 'y' nebo 'n'.")
-    nenalezenookno = translations.get("nenalezenookno", "Okno s názvem '{nazevvokna}' nebylo nalezeno.")
-    oknoaktivovano = translations.get("oknoaktivovano", "Okno '{nazevvokna}' bylo úspěšně aktivováno.")
-    nastaveni = translations.get("nastaveni", "Nastavení")
-    vybrat = translations.get("vybrat", "Vyber si: ")
-    nenitu = translations.get("nenitu", "Neimplementováno")
-    zpatky = translations.get("zpatky", "Zpět")
-    zmenajazyka = translations.get("zmenajazyka", "Jazyk byl změněn na Češtinu.")
-    jazy = translations.get("jazy", "Jazyky")
-    zpet = translations.get("zpet", "Zpět")
-
+    nadpis = translations.get("nadpis", nadpis)
+    kalkulacka = translations.get("kalkulacka", kalkulacka)
+    p1penize = translations.get("p1penize", p1penize)
+    p2penizeovi = translations.get("p2penizeovi", p2penizeovi)
+    a = translations.get("a", a)
+    mocchudy = translations.get("mocchudy", mocchudy)
+    ty = translations.get("ty", ty)
+    matestejne = translations.get("matestejne", matestejne)
+    musisdat = translations.get("musisdat", musisdat)
+    ovi = translations.get("ovi", ovi)
+    timusidat = translations.get("timusidat", timusidat)
+    ckjmc = translations.get("ckjmc", ckjmc)
+    poslimechat = translations.get("poslimechat", poslimechat)
+    mcprikaz = translations.get("mcprikaz", mcprikaz)
+    chcescmddochatu = translations.get("chcescmddochatu", chcescmddochatu)
+    neumispsat = translations.get("neumispsat", neumispsat)
+    nenalezenookno = translations.get("nenalezenookno", nenalezenookno)
+    oknoaktivovano = translations.get("oknoaktivovano", oknoaktivovano)
+    nastaveni = translations.get("nastaveni", nastaveni)
+    vybrat = translations.get("vybrat", vybrat)
+    nenitu = translations.get("nenitu", nenitu)
+    zpatky = translations.get("zpatky", zpatky)
+    zmenajazyka = translations.get("zmenajazyka", zmenajazyka)
+    jazy = translations.get("jazy", jazy)
+    zpet = translations.get("zpet", zpet)
 
 importjazyka()
 
@@ -158,7 +185,7 @@ def jazyky():
 def main_menu():
     clear()
     while True:
-        print(modra + nadpis + bila)
+        print(cervena + "===", zluta + nadpis, cervena + "===")
         print(zelena + "[1]" + bila, kalkulacka)
         print(zelena + "[2]" + bila, jazy)
         print(zelena + "[3]" + bila, "Themes")
@@ -181,10 +208,12 @@ def main_menu():
             # themes
         elif choice == "4":
             print(nastaveni)
-            print(NotImplementedError)
+            #dočasné řešení
+            otazka1()
             return main_menu()
         elif choice == "5":
-            print("Credits")
+            clear()
+            print(modra + "Credits" + bila)
             print("Vytvořil: Rodrick (Ten Ajťák) a Ocasníček (Ten Elektrikář)")
             print(zelena + "https://github.com/rodrickhmmm/RovnomerPenez" + bila)
             time.sleep(5)
@@ -193,7 +222,9 @@ def main_menu():
             print("Exit")
             sys.exit()
         else:
+            clear()
             print(neumispsat)
+            main_menu()
 
 # KONEC MAIN MENU ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # HLAVNÍ FUNKCE ------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -201,6 +232,7 @@ def main_menu():
 # Uvodni zprava a zadani promennych uzivatelem
 def calc():
     clear()
+    global p1, p2
     print(cervena + "===", zluta + nadpis, cervena + "===")
     p1 = float(input(modra + p1penize + bila))
     p2 = float(input(zluta + player2BezKoncovky + p2penizeovi + bila))
@@ -208,14 +240,88 @@ def calc():
 
     # podmínky pro kokoty    
     if ((p1 <= 0) and (p2 <= 0)):
-        print(mocchudy)
+        print(cervena + mocchudy + bila)
     elif p1 == p2:
-        print(matestejne)
-    elif p1 > p2:
-        rozdil = p1 - p2
-        print(musisdat, rozdil, symbol, ovi)
-    else:
-        rozdil = p2 - p1
-        print(timusidat, rozdil, symbol)
+        print(cervena + matestejne + bila)
 
+    # výpočet
+    global mezivysledek, mezivysledek2, vysledek
+    mezivysledek = float(p1 - ((p1 + p2) / 2))
+    mezivysledek2 = float(abs(mezivysledek))
+    if mezivysledek2.is_integer() == True:
+        vysledek = int(mezivysledek2)
+    else:
+        vysledek = mezivysledek2
+
+    if (p1 > p2):   
+        print(bila + "Musíš dát", vysledek, symbol, player2BezKoncovky + "ovi")
+        input("Press Enter to continue...")
+        clear()
+
+    if (p1 < p2):
+        print("\033[32;49;1m" + player2ek, "ti musí dát", vysledek, symbol)
+        input("Press Enter to continue...")
+        clear()
+
+    # final
+    if automatickynapsat == True and (p1 > p2):
+        # timeout
+        clear()
+        print(zelena + ckjmc)
+        otevritmc()
+        time.sleep(0.5)
+        clear()
+        print(cervena + "===", zluta + nadpis, cervena + "===")
+        time.sleep(0.3)
+        otevritmc()
+        time.sleep(0.4)
+        pyautogui.press("esc")
+        pyautogui.press("t")
+        pyautogui.write("/pay " + str(player2nick) + " " + str(vysledek))
+        pyautogui.press("enter")
+        main_menu()
+
+    elif automatickynapsat == True and (p1 < p2):
+        clear()
+        print(zelena + ckjmc)
+        otevritmc()
+        time.sleep(0.5)
+        clear()
+        print(cervena + "===", zluta + nadpis, cervena + "===")
+        time.sleep(0.3)
+        time.sleep(0.4)
+        pyautogui.press("esc")
+        pyautogui.press("t")
+        pyautogui.write(str(player2nick) + " posli mne " + str(vysledek) + str(symbol))
+        pyautogui.press("enter")
+        clear()
+
+    elif automatickynapsat == False and (p1 > p2):
+        clear()
+        print(mcprikaz)
+        print(zelena + "/pay " + str(player2nick), str(vysledek) + bila)
+        input("Press Enter to continue...")
+        clear()
+        main_menu()
+
+    elif automatickynapsat == False and (p1 < p2):
+        clear()
+        main_menu()
+
+#automaticky napsat - dočasné řešení
+def otazka1():
+    global automatickynapsat
+    automatickynapsat = None  # Inicializace jako None
+    otazka = input(modra + "Chceš, abych to za tebe napsal do chatu? [y/n] " + bila).strip().lower()
+    
+    if otazka == "y":
+        automatickynapsat = True
+    elif otazka == "n":
+        automatickynapsat = False
+    else:
+        print(cervena + "Neumíš psát???? Zadej prosím 'y' nebo 'n'." + bila)
+        automatickynapsat = None
+        return otazka1()
+
+# spuštění
 main_menu()
