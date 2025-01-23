@@ -2,6 +2,7 @@
 
 # importuješ moduly
 
+import gettext
 import json
 import time
 from colorama import ansi
@@ -13,7 +14,7 @@ player2BezKoncovky = "Ocasníčk" # jméno hráče 2 bez koncovky (pro lepší s
 player2ek = "Ocasníček" # jméno hráče 2
 player2nick = "Ocasnik" # nick hráče
 symbol = "€" # symbol měny
-jazyk = "data.json"
+jazyk = "cz" # jazyk/dialekt (cz, mo - moravština, br - brněnský dialekt, ba - brainrot dialekt)
 
 
 # KONFIGURACE BAREV 
@@ -24,8 +25,9 @@ zelena = "\033[32;49;1m"
 bila = "\033[0m"
 
 # Importace jazyka/dialektu do python souboru
-with open(jazyk, 'r', encoding='utf-8') as file:
-    translations = json.load(file)
+if jazyk == "cz":
+    with open("jazyky/"+ jazyk + ".json" 'r', encoding='utf-8') as file:
+        translations = json.load(file)
 
 # Vytvoření lokálních proměnných dynamicky
 locals().update(translations)
