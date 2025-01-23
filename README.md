@@ -33,6 +33,7 @@ Jednoduché spuštění: Pomocí souboru Open.bat spustíte program jedním klik
 
 # Požadavky
 
+
 **Python 3** nebo **novější**
 
 Modul **pyautogui** - stačí otevřít soubor nainsttalovat moduly.bat, který automaticky daný modul nainstaluje
@@ -41,6 +42,10 @@ Modul **pyautogui** - stačí otevřít soubor nainsttalovat moduly.bat, který 
 
 
 # Konfigurace
+
+Konfigurace nekterych promen. V kódu je to velice dobře popsané a jednoduché na přepsání takže se nemusíte obávat, že by jste se v kódu ztratili.
+
+Proměnné, které se opravují: 
 
 nazevvokna (Název Minecraft okna)
 
