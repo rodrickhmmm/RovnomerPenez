@@ -35,14 +35,14 @@ locals().update(translations)
 def otazka1():
     global automatickynapsat
     automatickynapsat = None  # Inicializace jako None
-    otazka = input(modra + "Chceš, abych to za tebe napsal do chatu? [y/n] " + bila).strip().lower()
+    otazka = input(modra + chcescmddochatu + " [y/n] " + bila).strip().lower()
     
     if otazka == "y":
         automatickynapsat = True
     elif otazka == "n":
         automatickynapsat = False
     else:
-        print(cervena + "Neumíš psát???? Zadej prosím 'y' nebo 'n'." + bila)
+        print(cervena + neumispsat + bila)
         automatickynapsat = None
         return otazka1()
         
@@ -51,11 +51,11 @@ def otevritmc():
     try:
         windows = pyautogui.getWindowsWithTitle(nazevvokna)
         if not windows:
-            raise ValueError(f"Okno s názvem '{nazevvokna}' nebylo nalezeno.")  # Vlastní chyba, pokud je seznam prázdný
+            raise ValueError(fnenalezenookno)  # Vlastní chyba, pokud je seznam prázdný
     
         Mc = windows[0]
         Mc.activate()
-        print(f"Okno '{nazevvokna}' bylo úspěšně aktivováno.")
+        print(foknoaktivovano)
 
     except ValueError as e:
         print(e)  # Zobrazí vlastní zprávu při prázdném seznamu
@@ -94,7 +94,7 @@ if (p1 > p2):
     time.sleep(0.5)
 
 if (p1 < p2):
-    print("\033[32;49;1m" + player2ek, timusidat, vysledek, symbol)
+    print(zelena + player2ek, timusidat, vysledek, symbol)
     print("")
     time.sleep(0.5)
 
@@ -102,10 +102,10 @@ otazka1()
 
 if automatickynapsat == True and (p1 > p2):
     # timeout
-    print("\033[32;49;1m" + ckjmc)
+    print(zelena + ckjmc)
     time.sleep(0.5)
     print("")
-    print(cervena + "===", zluta + "Výpočet stejné hodnoty měny (socialismus simulátor)", cervena + "===")
+    print(cervena + "===", zluta + nadpis, cervena + "===")
     time.sleep(0.3)
     otevritmc()
     time.sleep(0.4)
@@ -116,20 +116,20 @@ if automatickynapsat == True and (p1 > p2):
     exit
 
 if automatickynapsat == True and (p1 < p2):
-    print("\033[32;49;1m" + "Počkej než se otevře minecraft...")
+    print(zelena + ckjmc)
     time.sleep(0.5)
     print("")
-    print(cervena + "===", zluta + "Výpočet stejné hodnoty měny (socialismus simulátor)", cervena + "===")
+    print(cervena + "===", zluta + nadpis, cervena + "===")
     time.sleep(0.3)
     otevritmc()
     time.sleep(0.4)
     pyautogui.press("esc")
     pyautogui.press("t")
-    pyautogui.write(str(player2nick) + " posli mne " + str(vysledek) + str(symbol) + "€")
+    pyautogui.write(str(player2nick) + poslimechat + str(vysledek) + str(symbol) + "€")
     pyautogui.press("enter")
 
 if automatickynapsat == False and (p1 > p2):
-    print("Napiš do Minecraftu tento příkaz:")
+    print(mcprikaz)
     print(zelena + "/pay " + str(player2nick), str(vysledek) + bila)
     exit
 
