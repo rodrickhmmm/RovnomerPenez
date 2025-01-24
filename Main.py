@@ -1,4 +1,3 @@
-# Varování! Barvy se nezobrazujou ve starem cmd (od windows 10 a níž). Pro správné fungování se musí nainstalovat Microsoft Terminal z Microsoft Storu.
 
 # importuješ moduly
 
@@ -147,7 +146,9 @@ def jazyky():
     print(zelena + "[2]" + bila, "Moravština")
     print(zelena + "[3]" + bila, "Hantec")
     print(zelena + "[4]" + bila, "Brainrot spachtoš")
-    print(zelena + "[5]" + cervena, zpet + bila) #type: ignore
+    print(zelena + "[5]" + bila, "English")
+    print(zelena + "[6]" + bila, "Skinhead English")
+    print(zelena + "[7]" + cervena, zpet + bila) #type: ignore
     vyber = input(vybrat)
     global jazyk
     if vyber == "1":
@@ -175,6 +176,18 @@ def jazyky():
         time.sleep(1)
         return main_menu()
     if vyber == "5":
+        jazyk = "en"
+        importjazyka()
+        print(cervena + zmenajazyka + bila)
+        time.sleep(1)
+        return main_menu()
+    if vyber == "6":
+        jazyk = "sh"
+        importjazyka()
+        print(cervena + zmenajazyka + bila)
+        time.sleep(1)
+        return main_menu()    
+    if vyber == "7":
         return main_menu()
     else:
         print(neumispsat)
@@ -240,7 +253,7 @@ def calc():
 
     # podmínky pro kokoty    
     if ((p1 <= 0) and (p2 <= 0)):
-        print(cervena + mocchudy + bila)
+        print(cervena + mocchudy + bila)        
     elif p1 == p2:
         print(cervena + matestejne + bila)
 
@@ -252,8 +265,6 @@ def calc():
         vysledek = int(mezivysledek2)
     else:
         vysledek = mezivysledek2
-        
-    clear()
 
     if (p1 > p2):   
         print(zelena + "Musíš dát", vysledek, symbol, player2BezKoncovky + "ovi" + bila)
