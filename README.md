@@ -59,24 +59,6 @@ Modul **pyautogui** - stačí otevřít soubor nainsttalovat moduly.bat, který 
 
 **Terminál** (příkazový řádek)
 
-
-# Konfigurace
-
-Konfigurace nekterych promen. V kódu je to velice dobře popsané a jednoduché na přepsání takže se nemusíte obávat, že by jste se v kódu ztratili.
-
-Proměnné, které se opravují: 
-
-nazevvokna (Název Minecraft okna)
-
-player2BezKoncovky = "Ocasníčk" (Jméno bez koncovky)
-
-player2ek = "Ocasníček" (Jméno s koncovkou -ek)
-
-player2nick = "Ocasnik" (Nick hráče)
-
-symbol (symbol měny)
-
-
 # Credits
 
 Vytvořeno Ajťákem a Elektrikářem
