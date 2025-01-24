@@ -187,7 +187,7 @@ def settings_menu():
     print(zelena + "[3]" + bila, "Player 2 Name" + ":", cervena + player2BezKoncovky + " / " + player2ek + bila)
     print(zelena + "[4]" + bila, minecraft + ":", cervena + nazevvokna + bila)
     print(zelena + "[5]" + bila, "Symbol" + ":", cervena + symbol + bila)
-    print(zelena + "[6]" + cervena, "Zpět", bila)
+    print(zelena + "[6]" + cervena, zpatky, bila)
     vyber = input(vybrat)
     if vyber == "1":
         clear()
@@ -203,11 +203,12 @@ def settings_menu():
         ulozit_nastaveni()
     elif vyber == "4":
         clear()
+        otazka4()
         ulozit_nastaveni()
         return main_menu()
     elif vyber == "5":
         clear()
-        otazka4()
+        otazka5()
         ulozit_nastaveni()
     elif vyber == "6":
         clear()
@@ -456,9 +457,18 @@ def otazka3():
     ulozit_nastaveni()
     clear()
     settings_menu()
-
+    
 #změnit symbol
 def otazka4():
+    clear()
+    global nazevvokna
+    nazevvokna = input(modra + minecraft + bila)
+    ulozit_nastaveni()
+    clear()
+    settings_menu()    
+
+#změnit symbol
+def otazka5():
     clear()
     global symbol
     symbol = input(modra + zadejsymbol + bila)
