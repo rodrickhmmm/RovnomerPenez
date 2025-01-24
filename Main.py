@@ -1,6 +1,5 @@
 
 # importuješ moduly
-
 import os
 import gettext
 import json
@@ -9,23 +8,6 @@ import time
 from colorama import ansi
 import pyautogui
 
-# KONFIGURACE
-try:
-    with open("settings.json", 'r', encoding='utf-8') as file:
-        settings = json.load(file)
-    config = settings
-except json.JSONDecodeError as e:
-    print(f"Chyba při načítání JSON: {e}")
-    config = {}
-
-nazevvokna = config.get("nazevvokna", "Minecraft") # název okna, které má skript otevřít - v mém případě Feather Client, normálně by mělo být Minecraft <dopln si verzi>
-player2BezKoncovky = config.get("player2BezKoncovky", "default_value") # jméno hráče 2 bez koncovky (pro lepší skloňování protože čeština lmao)
-player2ek = config.get("player2ek", "default_value") # jméno hráče 2
-player2nick = config.get("player2nick", "default_value") # nick hráče
-symbol = config.get("symbol", "coin") # symbol měny
-jazyk = config.get("jazyk", "cz") # jazyk/dialekt (cz, mo - moravština, br - brněnština, ba - brainrot dialekt)
-automatickynapsat = config.get("automatickynapsat", False) # automatické napsání do chatu
-
 # KONFIGURACE BAREV 
 cervena = "\033[31;49;1m"
 zluta = "\033[33;49;1m"
@@ -33,8 +15,54 @@ modra = '\033[34;49;1m'
 zelena = "\033[32;49;1m"
 bila = "\033[0m"
 
-
 # FUNKCE ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Výchozí nastavení
+default_settings = {
+    "automatickynapsat": False,
+    "jazyk": "cz",
+    "player2BezKoncovky": "default_value",
+    "player2ek": "default_value",
+    "player2nick": "default_value",
+    "symbol": "coin",
+    "nazevvokna": "Minecraft"
+}
+
+# Funkce pro uložení nastavení do JSON souboru
+def ulozit_nastaveni():
+    nastaveni = {
+        "automatickynapsat": automatickynapsat,
+        "jazyk": jazyk,
+        "player2BezKoncovky": player2BezKoncovky,
+        "player2ek": player2ek,
+        "player2nick": player2nick,
+        "symbol": symbol,
+        "nazevvokna": nazevvokna
+    }
+    with open("settings.json", "w", encoding="utf-8") as file:
+        json.dump(nastaveni, file, ensure_ascii=False, indent=4)
+
+# Funkce pro načtení nastavení z JSON souboru
+def nacist_nastaveni():
+    global automatickynapsat, jazyk, nazevvokna, player2BezKoncovky, player2ek, player2nick, symbol
+    if os.path.exists("settings.json"):
+        with open("settings.json", "r", encoding="utf-8") as file:
+            nastaveni = json.load(file)
+            automatickynapsat = nastaveni.get("automatickynapsat", False)
+            jazyk = nastaveni.get("jazyk", "cz")
+            nazevvokna = nastaveni.get("nazevvokna", "Minecraft")
+            player2BezKoncovky = nastaveni.get("player2BezKoncovky", "default_value")
+            player2ek = nastaveni.get("player2ek", "default_value")
+            player2nick = nastaveni.get("player2nick", "default_value")
+            symbol = nastaveni.get("symbol", "coin")
+    else:
+        input(cervena + "Nastavení nebylo nalezeno, vytvářím výchozí nastavení. Press enter to continue..." + bila)
+        with open("settings.json", "w", encoding="utf-8") as file:
+            json.dump(default_settings, file, ensure_ascii=False, indent=4)
+        nacist_nastaveni()
+
+# Zavolejte funkci nacist_nastaveni při spuštění programu
+nacist_nastaveni()
 
 # clear screen
 def clear():
@@ -42,7 +70,7 @@ def clear():
 
 # importace jazyka/dialektu
 def importjazyka():
-    global nadpis, automatickynapsat, zpet, jazy, kalkulacka, p1penize, p2penizeovi, a, mocchudy, ty, matestejne, musisdat, ovi, timusidat, ckjmc, poslimechat, mcprikaz, chcescmddochatu, neumispsat, nenalezenookno, oknoaktivovano, nastaveni, vybrat, nenitu, zpatky, zmenajazyka
+    global nadpis, zadejsymbol, nick2, minecraft, jmeno2, jmeno2bez, autonapsat, automatickynapsat, zpet, jazy, kalkulacka, p1penize, p2penizeovi, a, mocchudy, ty, matestejne, musisdat, ovi, timusidat, ckjmc, poslimechat, mcprikaz, chcescmddochatu, neumispsat, nenalezenookno, oknoaktivovano, nastaveni, vybrat, nenitu, zpatky, zmenajazyka
 
     # Inicializace proměnných
     nadpis = "Nadpis menu"
@@ -70,6 +98,12 @@ def importjazyka():
     zmenajazyka = "Jazyk byl změněn na Češtinu."
     jazy = "Jazyky"
     zpet = "Zpět"
+    autonapsat = "Automatické napsání do chatu"
+    jmeno2bez = "Zadej jméno hráče 2 bez koncovky: "
+    jmeno2 = "Zadej jméno hráče 2: "
+    minecraft = "Název okna Minecraftu: "
+    nick2 = "Zadej nick hráče 2: "
+    zadejsymbol = "Zadej symbol měny: "
 
     with open("jazyky/"+ jazyk + ".json", 'r', encoding='utf-8') as file:
         translations = json.load(file)
@@ -100,6 +134,12 @@ def importjazyka():
     zmenajazyka = translations.get("zmenajazyka", zmenajazyka)
     jazy = translations.get("jazy", jazy)
     zpet = translations.get("zpet", zpet)
+    autonapsat = translations.get ("autonapsat", autonapsat)
+    jmeno2bez = translations.get("jmeno2bez", jmeno2bez)
+    jmeno2 = translations.get("jmeno2", jmeno2)
+    minecraft = translations.get("minecraft", minecraft)
+    nick2 = translations.get("nick2", "Zadej nick hráče 2: ")
+    zadejsymbol = translations.get("zadejsymbol", "Zadej symbol měny: ")
 
 importjazyka()
 
@@ -138,6 +178,45 @@ def otevritmc():
     except Exception as e:
         print(f"Neočekávaná chyba: {e}")
 
+# Menu nastavení -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+def settings_menu():
+    clear()
+    print(modra + nastaveni + bila)
+    print(zelena + "[1]" + bila, autonapsat + ":", cervena + str(automatickynapsat) + bila)
+    print(zelena + "[2]" + bila, "Player 2 Nick" + ":", cervena + player2nick + bila)
+    print(zelena + "[3]" + bila, "Player 2 Name" + ":", cervena + player2BezKoncovky + " / " + player2ek + bila)
+    print(zelena + "[4]" + bila, minecraft + ":", cervena + nazevvokna + bila)
+    print(zelena + "[5]" + bila, "Symbol" + ":", cervena + symbol + bila)
+    print(zelena + "[6]" + cervena, "Zpět", bila)
+    vyber = input(vybrat)
+    if vyber == "1":
+        clear()
+        otazka1()
+        ulozit_nastaveni()
+    elif vyber == "2":
+        clear()
+        otazka2()
+        ulozit_nastaveni()
+    elif vyber == "3":
+        clear()
+        otazka3()
+        ulozit_nastaveni()
+    elif vyber == "4":
+        clear()
+        ulozit_nastaveni()
+        return main_menu()
+    elif vyber == "5":
+        clear()
+        otazka4()
+        ulozit_nastaveni()
+    elif vyber == "6":
+        clear()
+        return main_menu()
+    else:
+        print(neumispsat)
+        clear()
+        return settings_menu()
+
 # menu jazyků
 def jazyky():
     clear()
@@ -146,8 +225,8 @@ def jazyky():
     print(zelena + "[2]" + bila, "Moravština")
     print(zelena + "[3]" + bila, "Hantec")
     print(zelena + "[4]" + bila, "Brainrot spachtoš")
-    print(zelena + "[5]" + bila, "English")
-    print(zelena + "[6]" + bila, "Skinhead English")
+    print(zelena + "[5]" + bila, "Skinhead English")
+    print(zelena + "[6]" + bila, "English")
     print(zelena + "[7]" + cervena, zpet + bila) #type: ignore
     vyber = input(vybrat)
     global jazyk
@@ -156,41 +235,54 @@ def jazyky():
         importjazyka()
         print(cervena + zmenajazyka + bila)
         time.sleep(1)
+        clear()
+        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
         return main_menu()
-    if vyber == "2":
+    elif vyber == "2":
         jazyk = "mo"
         importjazyka()
         print(cervena + zmenajazyka + bila)
         time.sleep(1)
+        clear()
+        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
         return main_menu()
-    if vyber == "3":
+    elif vyber == "3":
         jazyk = "br"
         importjazyka()
         print(cervena + zmenajazyka + bila)
         time.sleep(1)
+        clear()
+        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
         return main_menu()
-    if vyber == "4":
+    elif vyber == "4":
         jazyk = "ba"
         importjazyka()
         print(cervena + zmenajazyka + bila)
         time.sleep(1)
+        clear()
+        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
         return main_menu()
-    if vyber == "5":
-        jazyk = "en"
-        importjazyka()
-        print(cervena + zmenajazyka + bila)
-        time.sleep(1)
-        return main_menu()
-    if vyber == "6":
+    elif vyber == "5":
         jazyk = "sh"
         importjazyka()
         print(cervena + zmenajazyka + bila)
         time.sleep(1)
-        return main_menu()    
-    if vyber == "7":
+        clear()
+        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
+        return main_menu()
+    elif vyber == "6":
+        jazyk = "en"
+        importjazyka()
+        print(cervena + zmenajazyka + bila)
+        time.sleep(1)
+        clear()
+        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
+        return main_menu()
+    elif vyber == "7":
         return main_menu()
     else:
         print(neumispsat)
+        clear()
         return jazyky()
 
 #MAIN MENU ------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -221,13 +313,11 @@ def main_menu():
             # themes
         elif choice == "4":
             print(nastaveni)
-            #dočasné řešení
-            otazka1()
-            return main_menu()
+            settings_menu()
         elif choice == "5":
             clear()
             print(modra + "Credits" + bila)
-            print("Vytvořil: Rodrick (Ten Ajťák) a Ocasníček (Ten Elektrikář)")
+            print("Vytvořil: Rodrick - rodrickhmmm (Ten Ajťák) a Ocasníček - xtomasnemec (Ten Elektrikář)")
             print(zelena + "https://github.com/rodrickhmmm/RovnomerPenez" + bila)
             time.sleep(5)
             main_menu()
@@ -267,13 +357,13 @@ def calc():
         vysledek = mezivysledek2
 
     if (p1 > p2):   
-        print(zelena + "Musíš dát", vysledek, symbol, player2BezKoncovky + "ovi" + bila)
-        input("Press Enter to continue...")
+        print(zelena + musisdat, vysledek, symbol, player2BezKoncovky + "ovi" + bila)
+        input("Press Enter to continue...") 
         clear()
 
     if (p1 < p2):
-        print(zelena + player2ek, "ti musí dát", vysledek, symbol + bila)
-        input("Press Enter to continue...")
+        print(zelena + player2ek, timusidat, vysledek, symbol + bila)
+        input("Press Enter to continue...") 
         clear()
 
     # final
@@ -313,7 +403,7 @@ def calc():
         clear()
         print(mcprikaz)
         print(zelena + "/pay " + str(player2nick), str(vysledek) + bila)
-        input("Press Enter to continue...")
+        input("Press Enter to continue...") 
         clear()
         main_menu()
 
@@ -321,20 +411,60 @@ def calc():
         clear()
         main_menu()
 
-#automaticky napsat - dočasné řešení
+#automaticky napsat
 def otazka1():
+    clear()
     global automatickynapsat
     automatickynapsat = None  # Inicializace jako None
-    otazka = input(modra + "Chceš, abych to za tebe napsal do chatu? [y/n] " + bila).strip().lower()
+    otazka = input(modra + chcescmddochatu + "[y/n]" + bila).strip().lower()
+    clear()
     
     if otazka == "y":
         automatickynapsat = True
+        ulozit_nastaveni()
+        settings_menu()
     elif otazka == "n":
         automatickynapsat = False
+        ulozit_nastaveni()
+        settings_menu()
     else:
-        print(cervena + "Neumíš psát???? Zadej prosím 'y' nebo 'n'." + bila)
+        clear()
+        print(cervena + neumispsat + bila)
         automatickynapsat = None
+        input("Press Enter to continue...") 
+        clear()
         return otazka1()
+
+# změnit nick hráče 2
+def otazka2():
+    clear()
+    global player2nick
+    player2nick = input(modra + nick2 + bila)
+    ulozit_nastaveni()
+    clear()
+    settings_menu()
+
+# změnit jméno hráče 2
+def otazka3():
+    clear()
+    global player2BezKoncovky, player2ek
+    player2BezKoncovky = input(modra + jmeno2bez + bila)
+    if not jazyk == "en" or "sh":
+        player2ek = input(modra + jmeno2 + bila)
+    if jazyk == "en" or "sh":
+        player2ek = player2BezKoncovky
+    ulozit_nastaveni()
+    clear()
+    settings_menu()
+
+#změnit symbol
+def otazka4():
+    clear()
+    global symbol
+    symbol = input(modra + zadejsymbol + bila)
+    ulozit_nastaveni()
+    clear()
+    settings_menu()
 
 # spuštění
 main_menu()

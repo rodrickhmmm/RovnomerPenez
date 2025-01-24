@@ -22,5 +22,11 @@
   "nenitu": "Neimplementováno",
   "zpatky": "Zpátky",
   "zmenajazyka": "špráche přehozen do Hantecu",
-  "jazy": "Vybrat špráche"
+  "jazy": "Vybrat špráche",
+  "autonapsat": "Automatické napsání do chatu",
+  "jmeno2bez": "Zadej jméno hráča 2 bez koncovky: ",
+  "jmeno2": "Zadej jméno hráča 2: ",
+  "minecraft": "Název vokna Minecraftu: ",
+  "nick2": "Zadej nick hráča 2: ",
+  "zadejsymbol": "Zadej symbol lováčů: "
 }

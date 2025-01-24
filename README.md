@@ -30,6 +30,25 @@ Automatické zadání příkazu: Možnost příkaz automaticky zadat přímo do 
 
 Jednoduché spuštění: Pomocí souboru Open.bat spustíte program jedním kliknutím.
 
+# Jak to spustit
+
+## Windows
+
+- Stáhněte si celé repo
+- Spusťte soubour ```nainstalovat moduly.bat```
+- Pro otevírání programu použijte soubor ```Open.bat```
+
+## Linux, macOS a další UNIX-like OS
+
+```git clone https://github.com/rodrickhmmm/RovnomerPenez```
+
+```cd RovnomerPenez-main```
+
+```sudo chmod +x ./install.sh```
+
+```./install.sh```
+
+- Pro spouštění používejte: ```/RovnomerPenez-main/run.sh```, ```python /RovnomerPenez-main/Main.py``` nebo otevřte soubor ```Main.py```
 
 # Požadavky
 

@@ -22,5 +22,10 @@
   "nenitu": "Not implemented",
   "zpatky": "Back",
   "zmenajazyka": "Language was change to English.",
-  "jazy": "Choose language"
+  "jazy": "Choose language",
+  "autonapsat": "Automatically write to chat",
+  "jmeno2bez": "Enter player's 2 name: ",
+  "minecraft": "The name of the Minecraft window: ",
+  "nick2": "Enter player's 2 Username : ",
+  "zadejsymbol": "Enter currency symbol: "
 }

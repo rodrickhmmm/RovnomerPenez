@@ -22,5 +22,11 @@
   "nenitu": "Neimplementováno",
   "zpatky": "Zpět",
   "zmenajazyka": "Jazyk byl změněn na Češtinu.",
-  "jazy": "Vybrat Jazyk"
+  "jazy": "Vybrat Jazyk",
+  "autonapsat": "Automatické napsání do chatu",
+  "jmeno2bez": "Zadej jméno hráče 2 bez koncovky: ",
+  "jmeno2": "Zadej jméno hráče 2: ",
+  "minecraft": "Název okna Minecraftu: ",
+  "nick2": "Zadej nick hráče 2: ",
+  "zadejsymbol": "Zadej symbol měny: "
 }
