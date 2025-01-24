@@ -7,6 +7,7 @@ import sys
 import time
 from colorama import ansi
 import pyautogui
+import re
 
 # KONFIGURACE BAREV 
 cervena = "\033[31;49;1m"
@@ -27,6 +28,15 @@ default_settings = {
     "symbol": "coin",
     "nazevvokna": "Minecraft"
 }
+
+def extract_number(text):
+    # Use regex to extract the number, ignoring commas and decimals
+    match = re.search(r'(\d{1,3}(?:,\d{3})*)', text)
+    if match:
+        # Remove commas and convert to integer
+        return int(match.group(1).replace(",", ""))
+    else:
+        return None  # Return None if no number is found
 
 # Funkce pro uložení nastavení do JSON souboru
 def ulozit_nastaveni():
@@ -334,23 +344,27 @@ def main_menu():
 # HLAVNÍ FUNKCE ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Uvodni zprava a zadani promennych uzivatelem
+
 def calc():
     clear()
     global p1, p2
     print(cervena + "===", zluta + nadpis, cervena + "===")
-    p1 = float(input(modra + p1penize + bila))
-    p2 = float(input(zluta + player2BezKoncovky + p2penizeovi + bila))
+    p1 = input(modra + p1penize + bila)
+    p2 = input(zluta + player2BezKoncovky + p2penizeovi + bila)
     print("")
 
+    n1 = extract_number(p1)
+    n2 = extract_number(p2)
+
     # podmínky pro kokoty    
-    if ((p1 <= 0) and (p2 <= 0)):
+    if ((n1 <= 0) and (n2 <= 0)):
         print(cervena + mocchudy + bila)        
-    elif p1 == p2:
+    elif n1 == n2:
         print(cervena + matestejne + bila)
 
     # výpočet
     global mezivysledek, mezivysledek2, vysledek
-    mezivysledek = float(p1 - ((p1 + p2) / 2))
+    mezivysledek = float(n1 - ((n1 + n2) / 2))
     mezivysledek2 = float(abs(mezivysledek))
     if mezivysledek2.is_integer() == True:
         vysledek = int(mezivysledek2)
