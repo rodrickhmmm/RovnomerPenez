@@ -227,7 +227,8 @@ def jazyky():
     print(zelena + "[3]" + bila, "Hantec")
     print(zelena + "[4]" + bila, "Brainrot spachtoš")
     print(zelena + "[5]" + bila, "Skinhead English")
-    print(zelena + "[6]" + cervena, zpet + bila) #type: ignore
+    print(zelena + "[6]" + bila, "English")
+    print(zelena + "[7]" + cervena, zpet + bila) #type: ignore
     vyber = input(vybrat)
     global jazyk
     if vyber == "1":
@@ -271,6 +272,14 @@ def jazyky():
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
         return main_menu()
     elif vyber == "6":
+        jazyk = "en"
+        importjazyka()
+        print(cervena + zmenajazyka + bila)
+        time.sleep(1)
+        clear()
+        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
+        return main_menu()
+    elif vyber == "7":
         return main_menu()
     else:
         print(neumispsat)
@@ -309,7 +318,7 @@ def main_menu():
         elif choice == "5":
             clear()
             print(modra + "Credits" + bila)
-            print("Vytvořil: Rodrick (Ten Ajťák) a Ocasníček (Ten Elektrikář)")
+            print("Vytvořil: Rodrick - rodrickhmmm (Ten Ajťák) a Ocasníček - xtomasnemec (Ten Elektrikář)")
             print(zelena + "https://github.com/rodrickhmmm/RovnomerPenez" + bila)
             time.sleep(5)
             main_menu()
@@ -405,7 +414,7 @@ def calc():
         clear()
         main_menu()
 
-#automaticky napsat - dočasné řešení
+#automaticky napsat
 def otazka1():
     clear()
     global automatickynapsat
@@ -443,7 +452,10 @@ def otazka3():
     clear()
     global player2BezKoncovky, player2ek
     player2BezKoncovky = input(modra + jmeno2bez + bila)
-    player2ek = input(modra + jmeno2 + bila)
+    if not jazyk == "en" or "sh":
+        player2ek = input(modra + jmeno2 + bila)
+    if jazyk == "en" or "sh":
+        player2ek = player2BezKoncovky
     ulozit_nastaveni()
     clear()
     settings_menu()
