@@ -29,14 +29,18 @@ default_settings = {
     "nazevvokna": "Minecraft"
 }
 
-def extract_number(text):
-    # Use regex to extract the number, ignoring commas and decimals
-    match = re.search(r'(\d{1,3}(?:,\d{3})*)', text)
+# Převedení čísel z textu
+def extract_number_and_format(text):
+    if text.isdigit():
+        return int(text)
+
+    match = re.search(r'(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)', text)
     if match:
-        # Remove commas and convert to integer
-        return int(match.group(1).replace(",", ""))
+        extracted_number = match.group(1).replace(",", "")
+        return float(extracted_number) if '.' in extracted_number else int(extracted_number)
     else:
-        return None  # Return None if no number is found
+        return None
+
 
 # Funkce pro uložení nastavení do JSON souboru
 def ulozit_nastaveni():
@@ -71,7 +75,7 @@ def nacist_nastaveni():
             json.dump(default_settings, file, ensure_ascii=False, indent=4)
         nacist_nastaveni()
 
-# Zavolejte funkci nacist_nastaveni při spuštění programu
+# Zavolá funkci nacist_nastaveni při spuštění
 nacist_nastaveni()
 
 # clear screen
@@ -170,7 +174,7 @@ def automat():
         automatickynapsat = None
         return automat()
         
-# funkce na otevření mc
+# funkce na otevření Minecraftu
 def otevritmc():
     try:
         windows = pyautogui.getWindowsWithTitle(nazevvokna)
@@ -228,7 +232,7 @@ def settings_menu():
         clear()
         return settings_menu()
 
-# menu jazyků
+# Menu jazyků
 def jazyky():
     clear()
     print(modra + jazy + bila)
@@ -353,6 +357,7 @@ def main_menu():
 # HLAVNÍ FUNKCE ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Uvodni zprava a zadani promennych uzivatelem
+# Tj. kalkulačka
 
 def calc():
     clear()
@@ -362,35 +367,42 @@ def calc():
     p2 = input(zluta + player2BezKoncovky + p2penizeovi + bila)
     print("")
 
-    n1 = extract_number(p1)
-    n2 = extract_number(p2)
+    # Vyfiltruje z textu čísla 
+    n1 = extract_number_and_format(p1)
+    n2 = extract_number_and_format(p2)
 
-    # podmínky pro kokoty    
-    if ((n1 <= 0) and (n2 <= 0)):
-        print(cervena + mocchudy + bila)        
+    if n1 is None or n2 is None:
+        print(cervena + "Error: Unable to extract valid numbers from inputs." + bila)
+        input("Press Enter to continue...")
+        return main_menu()
+
+    if n1 <= 0 and n2 <= 0:
+        print(cervena + mocchudy + bila)
+        input("Press Enter to continue...")
+        return main_menu()
     elif n1 == n2:
         print(cervena + matestejne + bila)
+        input("Press Enter to continue...")
+        return main_menu()
 
-    # výpočet
+    # Provedení výpočtu
     global mezivysledek, mezivysledek2, vysledek
     mezivysledek = float(n1 - ((n1 + n2) / 2))
-    mezivysledek2 = float(abs(mezivysledek))
-    if mezivysledek2.is_integer() == True:
-        vysledek = int(mezivysledek2)
-    else:
-        vysledek = mezivysledek2
+    mezivysledek2 = abs(mezivysledek)
+    vysledek = int(mezivysledek2) if mezivysledek2.is_integer() else mezivysledek2
 
-    if (p1 > p2):   
+    # Finální zpráva, která zobrazí jestli ty nebo druhý hráč dává peníze
+    if n1 > n2:
         print(zelena + musisdat, vysledek, symbol, player2BezKoncovky + "ovi" + bila)
-        input("Press Enter to continue...") 
+        input("Press Enter to continue...")
         clear()
-
-    if (p1 < p2):
+    elif n1 < n2:
         print(zelena + player2ek, timusidat, vysledek, symbol + bila)
-        input("Press Enter to continue...") 
+        input("Press Enter to continue...")
         clear()
+    
 
-    # final
+    # Proces, který napíše do chatu příkaz nebo request budto jo nebo nn
     if automatickynapsat == True and (p1 > p2):
         # timeout
         clear()
@@ -434,8 +446,11 @@ def calc():
     elif automatickynapsat == False and (p1 < p2):
         clear()
         main_menu()
+        
+# KONEC HLAVNÍ FUNKCE ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#automaticky napsat
+# Nastavení otazky 
+# Otazka automaticky napsat
 def otazka1():
     clear()
     global automatickynapsat
@@ -473,10 +488,12 @@ def otazka3():
     clear()
     global player2BezKoncovky, player2ek
     player2BezKoncovky = input(modra + jmeno2bez + bila)
-    if not jazyk == "en" or "sh":
+
+    if jazyk not in ["en", "sh"]:
         player2ek = input(modra + jmeno2 + bila)
-    if jazyk == "en" or "sh":
+    else:
         player2ek = player2BezKoncovky
+
     ulozit_nastaveni()
     clear()
     settings_menu()
