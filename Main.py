@@ -486,6 +486,7 @@ def otazka2():
 # změnit jméno hráče 2
 def otazka3():
     clear()
+    nacist_nastaveni()
     global player2BezKoncovky, player2ek
     player2BezKoncovky = input(modra + jmeno2bez + bila)
 
