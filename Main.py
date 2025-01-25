@@ -238,7 +238,8 @@ def jazyky():
     print(zelena + "[4]" + bila, "Brainrot spachtoš")
     print(zelena + "[5]" + bila, "Skinhead English")
     print(zelena + "[6]" + bila, "English")
-    print(zelena + "[7]" + cervena, zpet + bila) #type: ignore
+    print(zelena + "[7]" + bila, "Français")    
+    print(zelena + "[8]" + cervena, zpet + bila) #type: ignore
     vyber = input(vybrat)
     global jazyk
     if vyber == "1":
@@ -290,6 +291,14 @@ def jazyky():
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
         return main_menu()
     elif vyber == "7":
+        jazyk = "fr"
+        importjazyka()
+        print(cervena + zmenajazyka + bila)
+        time.sleep(1)
+        clear()
+        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
+        return main_menu()
+    elif vyber == "8":
         return main_menu()
     else:
         print(neumispsat)
