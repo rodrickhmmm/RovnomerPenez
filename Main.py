@@ -471,12 +471,13 @@ def otazka2():
 # změnit jméno hráče 2
 def otazka3():
     clear()
+    nacist_nastaveni()
     global player2BezKoncovky, player2ek
     player2BezKoncovky = input(modra + jmeno2bez + bila)
-    if not jazyk == "en" or "sh":
-        player2ek = input(modra + jmeno2 + bila)
     if jazyk == "en" or "sh":
         player2ek = player2BezKoncovky
+    else:
+        player2ek = input(modra + jmeno2 + bila)
     ulozit_nastaveni()
     clear()
     settings_menu()
