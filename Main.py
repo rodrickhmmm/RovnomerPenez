@@ -242,8 +242,10 @@ def jazyky():
     print(zelena + "[4]" + bila, "Brainrot spachtoš")
     print(zelena + "[5]" + bila, "Skinhead English")
     print(zelena + "[6]" + bila, "English")
-    print(zelena + "[7]" + bila, "Français")    
-    print(zelena + "[8]" + cervena, zpet + bila) #type: ignore
+    print(zelena + "[7]" + bila, "Français")
+    print(zelena + "[8]" + bila, "YN/Hood language")     
+    print(zelena + "[9]" + bila, "Cajzlovština (přeloženo z Hantecu - Pražáčtina)") 
+    print(zelena + "[10]" + cervena, zpatky + bila) #type: ignore
     vyber = input(vybrat)
     global jazyk
     if vyber == "1":
@@ -303,6 +305,22 @@ def jazyky():
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
         return main_menu()
     elif vyber == "8":
+        jazyk = "ho"
+        importjazyka()
+        print(cervena + zmenajazyka + bila)
+        time.sleep(1)
+        clear()
+        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
+        return main_menu()
+    elif vyber == "9":
+        jazyk = "pr"
+        importjazyka()
+        print(cervena + zmenajazyka + bila)
+        time.sleep(1)
+        clear()
+        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
+        return main_menu()    
+    elif vyber == "10":
         return main_menu()
     else:
         print(neumispsat)
@@ -393,7 +411,7 @@ def calc():
 
     # Finální zpráva, která zobrazí jestli ty nebo druhý hráč dává peníze
     if n1 > n2:
-        print(zelena + musisdat, vysledek, symbol, player2BezKoncovky + "ovi" + bila)
+        print(zelena + musisdat, vysledek, symbol, player2BezKoncovky + ovi + bila)
         input("Press Enter to continue...")
         clear()
     elif n1 < n2:
@@ -490,7 +508,7 @@ def otazka3():
     global player2BezKoncovky, player2ek
     player2BezKoncovky = input(modra + jmeno2bez + bila)
 
-    if jazyk not in ["en", "sh"]:
+    if jazyk not in ["en", "sh", "ho"]:
         player2ek = input(modra + jmeno2 + bila)
     else:
         player2ek = player2BezKoncovky
