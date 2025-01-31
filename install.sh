@@ -9,3 +9,5 @@ pip install pyautogui
 sudo chmod +x ./Main.py
 sudo chmod +x ./run.sh
 ./run.sh
+cd ~
+rm -rf install.sh

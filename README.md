@@ -40,7 +40,7 @@ Jednoduché spuštění: Pomocí souboru Open.bat spustíte program jedním klik
 
 ## Linux, macOS a další UNIX-like OS
 
-```wget https://raw.githubusercontent.com/rodrickhmmm/RovnomerPenez/refs/heads/main/install.sh```
+```wget https://raw.githubusercontent.com/rodrickhmmm/RovnomerPenez/refs/heads/main/install.sh -O install.sh```
 
 ```sudo chmod +x ./install.sh```
 
