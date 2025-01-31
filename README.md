@@ -40,9 +40,7 @@ Jednoduché spuštění: Pomocí souboru Open.bat spustíte program jedním klik
 
 ## Linux, macOS a další UNIX-like OS
 
-```git clone https://github.com/rodrickhmmm/RovnomerPenez```
-
-```cd RovnomerPenez-main```
+```wget https://raw.githubusercontent.com/rodrickhmmm/RovnomerPenez/refs/heads/main/install.sh```
 
 ```sudo chmod +x ./install.sh```
 
