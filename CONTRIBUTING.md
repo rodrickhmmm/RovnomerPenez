@@ -1,0 +1,1 @@
+Můžete nám posílat už udělané jazyky udělané podle souboru ```jazyky/cz.json```
