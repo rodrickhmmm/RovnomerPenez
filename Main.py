@@ -161,14 +161,17 @@ importjazyka()
 # importace themes
 
 def importtheme():
-    global nadpisbarva, errorbarva, nadpiscarky, settingstextvar
+    global nadpisbarva, errorbarva, nadpiscarky, settingstextvar, zpatkybarva, zmenajazykabarva, zmenathemebarva, player2barva
     
     # Inicializace výchozí hodnoty
     nadpisbarva = "default_color"
     nadpiscarky = "default_color"
     errorbarva = "default_color"
     settingstextvar = "default_color"
-    
+    zpatkybarva = "default_color"
+    zmenajazykabarva = "default_color"
+    zmenathemebarva= "default_color"
+    player2barva= "default_color"
     
     with open("themes/" + theme + ".json", 'r', encoding='utf-8') as file:
         temata = json.load(file)
@@ -178,6 +181,10 @@ def importtheme():
     errorbarva = temata.get("errorbarva", errorbarva)
     nadpiscarky = temata.get("nadpiscarky", nadpiscarky)
     settingstextvar = temata.get("settingstextvar", settingstextvar)
+    zpatkybarva = temata.get("zpatkybarva", zpatkybarva)
+    zmenajazykabarva = temata.get("zmenajazykabarva", zmenajazykabarva)
+    zmenathemebarva= temata.get("zmenajazykabarva", zmenajazykabarva)
+    player2barva= temata.get("zmenajazykabarva", zmenajazykabarva)
     
 
     # Pokud je hodnota v JSONu jako string, pokusíme se ji najít v globálních proměnných
@@ -185,6 +192,10 @@ def importtheme():
     errorbarva = globals().get(errorbarva, errorbarva)
     nadpiscarky = globals().get(nadpiscarky, nadpiscarky)
     settingstextvar = globals().get(settingstextvar, settingstextvar)
+    zpatkybarva = globals().get(zpatkybarva, zpatkybarva)
+    zmenajazykabarva = globals().get(zmenajazykabarva, zmenajazykabarva)
+    zmenathemebarva= globals().get(zmenajazykabarva, zmenajazykabarva)
+    player2barva= globals().get(zmenajazykabarva, zmenajazykabarva)
 
 theme = "default"  # Nastav výchozí theme
 importtheme()
@@ -234,7 +245,7 @@ def settings_menu():
     print(zelena + "[3]" + bila, "Player 2 Name" + ":", settingstextvar + player2BezKoncovky + " / " + player2ek + bila)
     print(zelena + "[4]" + bila, minecraft + ":", settingstextvar + nazevvokna + bila)
     print(zelena + "[5]" + bila, "Symbol" + ":", settingstextvar + symbol + bila)
-    print(zelena + "[6]" + cervena, zpatky, bila)
+    print(zelena + "[6]" + zpatkybarva, zpatky, bila)
     vyber = input(vybrat)
     if vyber == "1":
         clear()
@@ -278,13 +289,13 @@ def jazyky():
     print(zelena + "[7]" + bila, "Français")
     print(zelena + "[8]" + bila, "YN/Hood language")     
     print(zelena + "[9]" + bila, "Cajzlovština (přeloženo z Hantecu - Pražáčtina)") 
-    print(zelena + "[10]" + cervena, zpatky + bila) #type: ignore
+    print(zelena + "[10]" + zpatkybarva, zpatky + bila) #type: ignore
     vyber = input(vybrat)
     global jazyk
     if vyber == "1":
         jazyk = "cz"
         importjazyka()
-        print(cervena + zmenajazyka + bila)
+        print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
@@ -292,7 +303,7 @@ def jazyky():
     elif vyber == "2":
         jazyk = "mo"
         importjazyka()
-        print(cervena + zmenajazyka + bila)
+        print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
@@ -300,7 +311,7 @@ def jazyky():
     elif vyber == "3":
         jazyk = "br"
         importjazyka()
-        print(cervena + zmenajazyka + bila)
+        print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
@@ -308,7 +319,7 @@ def jazyky():
     elif vyber == "4":
         jazyk = "ba"
         importjazyka()
-        print(cervena + zmenajazyka + bila)
+        print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
@@ -316,7 +327,7 @@ def jazyky():
     elif vyber == "5":
         jazyk = "sh"
         importjazyka()
-        print(cervena + zmenajazyka + bila)
+        print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
@@ -324,7 +335,7 @@ def jazyky():
     elif vyber == "6":
         jazyk = "en"
         importjazyka()
-        print(cervena + zmenajazyka + bila)
+        print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
@@ -332,7 +343,7 @@ def jazyky():
     elif vyber == "7":
         jazyk = "fr"
         importjazyka()
-        print(cervena + zmenajazyka + bila)
+        print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
@@ -340,7 +351,7 @@ def jazyky():
     elif vyber == "8":
         jazyk = "ho"
         importjazyka()
-        print(cervena + zmenajazyka + bila)
+        print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
@@ -348,7 +359,7 @@ def jazyky():
     elif vyber == "9":
         jazyk = "pr"
         importjazyka()
-        print(cervena + zmenajazyka + bila)
+        print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
@@ -365,13 +376,13 @@ def themes():
     clear()
     print(modra + jazy + bila)
     print(zelena + "[1]" + bila, "Default")
-    print(zelena + "[2]" + cervena, zpatky + bila) #type: ignore
+    print(zelena + "[2]" + zpatkybarva, zpatky + bila) #type: ignore
     vyber = input(vybrat)
     global tema
     if vyber == "1":
         jazyk = "default"
         importtheme()
-        print(cervena + "Zmenil si theme na default" + bila)
+        print(zmenathemebarva + "Zmenil si theme na default" + bila)
         time.sleep(1)
         clear()
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
@@ -394,7 +405,7 @@ def main_menu():
         print(zelena + "[3]" + bila, "Themes")
         print(zelena + "[4]" + bila, nastaveni)
         print(zelena + "[5]" + bila, "Credits")
-        print(zelena + "[6]" + cervena, "Exit" + bila)
+        print(zelena + "[6]" + zpatkybarva, zpatky + bila)
 
         choice = input(vybrat)
 
@@ -436,9 +447,9 @@ def main_menu():
 def calc():
     clear()
     global p1, p2
-    print(nadpiscarky + "===", zluta + nadpis, nadpiscarky + "===")
+    print(nadpiscarky + "===", nadpisbarva + nadpis, nadpiscarky + "===")
     p1 = input(modra + p1penize + bila)
-    p2 = input(zluta + player2BezKoncovky + p2penizeovi + bila)
+    p2 = input(player2barva + player2BezKoncovky + p2penizeovi + bila)
     print("")
 
     # Vyfiltruje z textu čísla 
@@ -484,7 +495,7 @@ def calc():
         otevritmc()
         time.sleep(0.5)
         clear()
-        print(nadpiscarky + "===", zluta + nadpis, nadpiscarky + "===")
+        print(nadpiscarky + "===", nadpisbarva + nadpis, nadpiscarky + "===")
         time.sleep(0.3)
         otevritmc()
         time.sleep(0.4)
@@ -500,7 +511,7 @@ def calc():
         otevritmc()
         time.sleep(0.5)
         clear()
-        print(nadpiscarky + "===", zluta + nadpis, nadpiscarky + "===")
+        print(nadpiscarky + "===", nadpisbarva + nadpis, nadpiscarky + "===")
         time.sleep(0.3)
         time.sleep(0.4)
         pyautogui.press("esc")

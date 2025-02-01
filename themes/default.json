@@ -1,7 +1,11 @@
 {
-  "nadpisbarva": "modra",
   "nadpiscarky": "cervena",
   "errorbarva": "cervena",
-  "settingstextvar": "cervena"
+  "settingstextvar": "cervena",
+  "zpatkybarva": "cervena",
+  "zmenajazykabarva": "cervena",
+  "zmenathemebarva": "cervena",
+  "nadpisbarva": "zluta",
+  "player2barva": "zluta"
   
 }
