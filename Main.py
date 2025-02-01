@@ -70,7 +70,7 @@ def nacist_nastaveni():
             player2nick = nastaveni.get("player2nick", "default_value")
             symbol = nastaveni.get("symbol", "coin")
     else:
-        input(cervena + "Nastavení nebylo nalezeno, vytvářím výchozí nastavení. Press enter to continue..." + bila)
+        input(errorbarva + "Nastavení nebylo nalezeno, vytvářím výchozí nastavení. Press enter to continue..." + bila)
         with open("settings.json", "w", encoding="utf-8") as file:
             json.dump(default_settings, file, ensure_ascii=False, indent=4)
         nacist_nastaveni()
@@ -157,6 +157,39 @@ def importjazyka():
 
 importjazyka()
 
+
+# importace themes
+
+def importtheme():
+    global nadpisbarva, errorbarva, nadpiscarky, settingstextvar
+    
+    # Inicializace výchozí hodnoty
+    nadpisbarva = "default_color"
+    nadpiscarky = "default_color"
+    errorbarva = "default_color"
+    settingstextvar = "default_color"
+    
+    
+    with open("themes/" + theme + ".json", 'r', encoding='utf-8') as file:
+        temata = json.load(file)
+
+    # Použití výchozí hodnoty, pokud není klíč nalezen
+    nadpisbarva = temata.get("nadpisbarva", nadpisbarva)
+    errorbarva = temata.get("errorbarva", errorbarva)
+    nadpiscarky = temata.get("nadpiscarky", nadpiscarky)
+    settingstextvar = temata.get("settingstextvar", settingstextvar)
+    
+
+    # Pokud je hodnota v JSONu jako string, pokusíme se ji najít v globálních proměnných
+    nadpisbarva = globals().get(nadpisbarva, nadpisbarva)
+    errorbarva = globals().get(errorbarva, errorbarva)
+    nadpiscarky = globals().get(nadpiscarky, nadpiscarky)
+    settingstextvar = globals().get(settingstextvar, settingstextvar)
+
+theme = "default"  # Nastav výchozí theme
+importtheme()
+
+
 # deklarace var automatickynapsat
 
 def automat():
@@ -170,7 +203,7 @@ def automat():
     elif otazka == "n":
         automatickynapsat = False
     else:
-        print(cervena + neumispsat + bila)
+        print(errorbarva + neumispsat + bila)
         automatickynapsat = None
         return automat()
         
@@ -179,7 +212,7 @@ def otevritmc():
     try:
         windows = pyautogui.getWindowsWithTitle(nazevvokna)
         if not windows:
-            raise ValueError(cervena + nenalezenookno)  # Vlastní chyba, pokud je seznam prázdný
+            raise ValueError(errorbarva + nenalezenookno)  # Vlastní chyba, pokud je seznam prázdný
 
         Mc = windows[0]
         Mc.activate()
@@ -188,7 +221,7 @@ def otevritmc():
     except ValueError as e:
         print(e)  # Zobrazí vlastní zprávu při prázdném seznamu
     except IndexError:
-        print(cervena + "Chyba: Pokus o přístup k neexistujícímu oknu.")
+        print(errorbarva + "Chyba: Pokus o přístup k neexistujícímu oknu.")
     except Exception as e:
         print(f"Neočekávaná chyba: {e}")
 
@@ -196,11 +229,11 @@ def otevritmc():
 def settings_menu():
     clear()
     print(modra + nastaveni + bila)
-    print(zelena + "[1]" + bila, autonapsat + ":", cervena + str(automatickynapsat) + bila)
-    print(zelena + "[2]" + bila, "Player 2 Nick" + ":", cervena + player2nick + bila)
-    print(zelena + "[3]" + bila, "Player 2 Name" + ":", cervena + player2BezKoncovky + " / " + player2ek + bila)
-    print(zelena + "[4]" + bila, minecraft + ":", cervena + nazevvokna + bila)
-    print(zelena + "[5]" + bila, "Symbol" + ":", cervena + symbol + bila)
+    print(zelena + "[1]" + bila, autonapsat + ":", settingstextvar + str(automatickynapsat) + bila)
+    print(zelena + "[2]" + bila, "Player 2 Nick" + ":", settingstextvar + player2nick + bila)
+    print(zelena + "[3]" + bila, "Player 2 Name" + ":", settingstextvar + player2BezKoncovky + " / " + player2ek + bila)
+    print(zelena + "[4]" + bila, minecraft + ":", settingstextvar + nazevvokna + bila)
+    print(zelena + "[5]" + bila, "Symbol" + ":", settingstextvar + symbol + bila)
     print(zelena + "[6]" + cervena, zpatky, bila)
     vyber = input(vybrat)
     if vyber == "1":
@@ -327,12 +360,35 @@ def jazyky():
         clear()
         return jazyky()
 
+# Themes menu
+def themes():
+    clear()
+    print(modra + jazy + bila)
+    print(zelena + "[1]" + bila, "Default")
+    print(zelena + "[2]" + cervena, zpatky + bila) #type: ignore
+    vyber = input(vybrat)
+    global tema
+    if vyber == "1":
+        jazyk = "default"
+        importtheme()
+        print(cervena + "Zmenil si theme na default" + bila)
+        time.sleep(1)
+        clear()
+        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
+        return main_menu()  
+    elif vyber == "2":
+        return main_menu()
+    else:
+        print(neumispsat)
+        clear()
+        return jazyky()
+
 #MAIN MENU ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def main_menu():
     clear()
     while True:
-        print(cervena + "===", zluta + nadpis, cervena + "===")
+        print(nadpiscarky + "===", nadpisbarva + nadpis, nadpiscarky + "===")
         print(zelena + "[1]" + bila, kalkulacka)
         print(zelena + "[2]" + bila, jazy)
         print(zelena + "[3]" + bila, "Themes")
@@ -350,8 +406,8 @@ def main_menu():
             jazyky()
         elif choice == "3":
             print("Themes")
-            print(NotImplementedError)
-            return main_menu()
+            themes()
+            
             # themes
         elif choice == "4":
             print(nastaveni)
@@ -380,7 +436,7 @@ def main_menu():
 def calc():
     clear()
     global p1, p2
-    print(cervena + "===", zluta + nadpis, cervena + "===")
+    print(nadpiscarky + "===", zluta + nadpis, nadpiscarky + "===")
     p1 = input(modra + p1penize + bila)
     p2 = input(zluta + player2BezKoncovky + p2penizeovi + bila)
     print("")
@@ -390,16 +446,16 @@ def calc():
     n2 = extract_number_and_format(p2)
 
     if n1 is None or n2 is None:
-        print(cervena + "Error: Unable to extract valid numbers from inputs." + bila)
+        print(errorbarva + "Error: Unable to extract valid numbers from inputs." + bila)
         input("Press Enter to continue...")
         return main_menu()
 
     if n1 <= 0 and n2 <= 0:
-        print(cervena + mocchudy + bila)
+        print(errorbarva + mocchudy + bila)
         input("Press Enter to continue...")
         return main_menu()
     elif n1 == n2:
-        print(cervena + matestejne + bila)
+        print(errorbarva + matestejne + bila)
         input("Press Enter to continue...")
         return main_menu()
 
@@ -428,7 +484,7 @@ def calc():
         otevritmc()
         time.sleep(0.5)
         clear()
-        print(cervena + "===", zluta + nadpis, cervena + "===")
+        print(nadpiscarky + "===", zluta + nadpis, nadpiscarky + "===")
         time.sleep(0.3)
         otevritmc()
         time.sleep(0.4)
@@ -444,7 +500,7 @@ def calc():
         otevritmc()
         time.sleep(0.5)
         clear()
-        print(cervena + "===", zluta + nadpis, cervena + "===")
+        print(nadpiscarky + "===", zluta + nadpis, nadpiscarky + "===")
         time.sleep(0.3)
         time.sleep(0.4)
         pyautogui.press("esc")
@@ -486,7 +542,7 @@ def otazka1():
         settings_menu()
     else:
         clear()
-        print(cervena + neumispsat + bila)
+        print(errorbarva + neumispsat + bila)
         automatickynapsat = None
         input("Press Enter to continue...") 
         clear()
