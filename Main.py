@@ -26,7 +26,9 @@ default_settings = {
     "player2ek": "default_value",
     "player2nick": "default_value",
     "symbol": "coin",
-    "nazevvokna": "Minecraft"
+    "nazevvokna": "Minecraft",
+    "tema": "Default"
+    
 }
 
 # Převedení čísel z textu
@@ -51,7 +53,8 @@ def ulozit_nastaveni():
         "player2ek": player2ek,
         "player2nick": player2nick,
         "symbol": symbol,
-        "nazevvokna": nazevvokna
+        "nazevvokna": nazevvokna,
+        "tema": tema
     }
     with open("settings.json", "w", encoding="utf-8") as file:
         json.dump(nastaveni, file, ensure_ascii=False, indent=4)
@@ -69,6 +72,7 @@ def nacist_nastaveni():
             player2ek = nastaveni.get("player2ek", "default_value")
             player2nick = nastaveni.get("player2nick", "default_value")
             symbol = nastaveni.get("symbol", "coin")
+            tema = nastaveni.get("tema", "default_value")
     else:
         input(errorbarva + "Nastavení nebylo nalezeno, vytvářím výchozí nastavení. Press enter to continue..." + bila)
         with open("settings.json", "w", encoding="utf-8") as file:
@@ -160,9 +164,13 @@ importjazyka()
 
 # importace themes
 
+import json
+
 def importtheme():
     global nadpisbarva, errorbarva, nadpiscarky, settingstextvar, zpatkybarva, zmenajazykabarva, zmenathemebarva, player2barva
-    
+    global chcesmcbarva, creditsbarva, p1penizebarva, settingsnadpis, settingsotazka
+    global cislovmenu, creditlink, oznamenibarva, cmdbarva
+
     # Inicializace výchozí hodnoty
     nadpisbarva = "default_color"
     nadpiscarky = "default_color"
@@ -170,9 +178,18 @@ def importtheme():
     settingstextvar = "default_color"
     zpatkybarva = "default_color"
     zmenajazykabarva = "default_color"
-    zmenathemebarva= "default_color"
-    player2barva= "default_color"
-    
+    zmenathemebarva = "default_color"
+    player2barva = "default_color"
+    chcesmcbarva = "default_color"
+    creditsbarva = "default_color"
+    p1penizebarva = "default_color"
+    settingsnadpis = "default_color"
+    settingsotazka = "default_color"
+    cislovmenu = "default_color"
+    creditlink = "default_color"
+    oznamenibarva = "default_color"
+    cmdbarva = "default_color"
+
     with open("themes/" + theme + ".json", 'r', encoding='utf-8') as file:
         temata = json.load(file)
 
@@ -183,9 +200,17 @@ def importtheme():
     settingstextvar = temata.get("settingstextvar", settingstextvar)
     zpatkybarva = temata.get("zpatkybarva", zpatkybarva)
     zmenajazykabarva = temata.get("zmenajazykabarva", zmenajazykabarva)
-    zmenathemebarva= temata.get("zmenajazykabarva", zmenajazykabarva)
-    player2barva= temata.get("zmenajazykabarva", zmenajazykabarva)
-    
+    zmenathemebarva = temata.get("zmenajazykabarva", zmenajazykabarva)
+    player2barva = temata.get("zmenajazykabarva", zmenajazykabarva)
+    chcesmcbarva = temata.get("chcesmcbarva", chcesmcbarva)
+    creditsbarva = temata.get("creditsbarva", creditsbarva)
+    p1penizebarva = temata.get("p1penizebarva", p1penizebarva)
+    settingsnadpis = temata.get("settingsnadpis", settingsnadpis)
+    settingsotazka = temata.get("settingsotazka", settingsotazka)
+    cislovmenu = temata.get("cislovmenu", cislovmenu)
+    creditlink = temata.get("creditlink", creditlink)
+    oznamenibarva = temata.get("oznamenibarva", oznamenibarva)
+    cmdbarva = temata.get("cmdbarva", cmdbarva)
 
     # Pokud je hodnota v JSONu jako string, pokusíme se ji najít v globálních proměnných
     nadpisbarva = globals().get(nadpisbarva, nadpisbarva)
@@ -194,12 +219,20 @@ def importtheme():
     settingstextvar = globals().get(settingstextvar, settingstextvar)
     zpatkybarva = globals().get(zpatkybarva, zpatkybarva)
     zmenajazykabarva = globals().get(zmenajazykabarva, zmenajazykabarva)
-    zmenathemebarva= globals().get(zmenajazykabarva, zmenajazykabarva)
-    player2barva= globals().get(zmenajazykabarva, zmenajazykabarva)
+    zmenathemebarva = globals().get(zmenajazykabarva, zmenajazykabarva)
+    player2barva = globals().get(zmenajazykabarva, zmenajazykabarva)
+    chcesmcbarva = globals().get(chcesmcbarva, chcesmcbarva)
+    creditsbarva = globals().get(creditsbarva, creditsbarva)
+    p1penizebarva = globals().get(p1penizebarva, p1penizebarva)
+    settingsnadpis = globals().get(settingsnadpis, settingsnadpis)
+    settingsotazka = globals().get(settingsotazka, settingsotazka)
+    cislovmenu = globals().get(cislovmenu, cislovmenu)
+    creditlink = globals().get(creditlink, creditlink)
+    oznamenibarva = globals().get(oznamenibarva, oznamenibarva)
+    cmdbarva = globals().get(cmdbarva, cmdbarva)
 
 theme = "default"  # Nastav výchozí theme
 importtheme()
-
 
 # deklarace var automatickynapsat
 
@@ -207,7 +240,7 @@ def automat():
     clear()
     global automatickynapsat
     automatickynapsat = None  # Inicializace jako None
-    otazka = input(modra + chcescmddochatu + " [y/n] " + bila).strip().lower()
+    otazka = input(chcesmcbarva + chcescmddochatu + " [y/n] " + bila).strip().lower()
     
     if otazka == "y":
         automatickynapsat = True
@@ -239,13 +272,13 @@ def otevritmc():
 # Menu nastavení -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 def settings_menu():
     clear()
-    print(modra + nastaveni + bila)
-    print(zelena + "[1]" + bila, autonapsat + ":", settingstextvar + str(automatickynapsat) + bila)
-    print(zelena + "[2]" + bila, "Player 2 Nick" + ":", settingstextvar + player2nick + bila)
-    print(zelena + "[3]" + bila, "Player 2 Name" + ":", settingstextvar + player2BezKoncovky + " / " + player2ek + bila)
-    print(zelena + "[4]" + bila, minecraft + ":", settingstextvar + nazevvokna + bila)
-    print(zelena + "[5]" + bila, "Symbol" + ":", settingstextvar + symbol + bila)
-    print(zelena + "[6]" + zpatkybarva, zpatky, bila)
+    print(settingsnadpis + nastaveni + bila)
+    print(cislovmenu + "[1]" + bila, autonapsat + ":", settingstextvar + str(automatickynapsat) + bila)
+    print(cislovmenu + "[2]" + bila, "Player 2 Nick" + ":", settingstextvar + player2nick + bila)
+    print(cislovmenu + "[3]" + bila, "Player 2 Name" + ":", settingstextvar + player2BezKoncovky + " / " + player2ek + bila)
+    print(cislovmenu + "[4]" + bila, minecraft + ":", settingstextvar + nazevvokna + bila)
+    print(cislovmenu + "[5]" + bila, "Symbol" + ":", settingstextvar + symbol + bila)
+    print(cislovmenu + "[6]" + zpatkybarva, zpatky, bila)
     vyber = input(vybrat)
     if vyber == "1":
         clear()
@@ -279,17 +312,17 @@ def settings_menu():
 # Menu jazyků
 def jazyky():
     clear()
-    print(modra + jazy + bila)
-    print(zelena + "[1]" + bila, "Čeština")
-    print(zelena + "[2]" + bila, "Moravština")
-    print(zelena + "[3]" + bila, "Hantec")
-    print(zelena + "[4]" + bila, "Brainrot spachtoš")
-    print(zelena + "[5]" + bila, "Skinhead English")
-    print(zelena + "[6]" + bila, "English")
-    print(zelena + "[7]" + bila, "Français")
-    print(zelena + "[8]" + bila, "YN/Hood language")     
-    print(zelena + "[9]" + bila, "Cajzlovština (přeloženo z Hantecu - Pražáčtina)") 
-    print(zelena + "[10]" + zpatkybarva, zpatky + bila) #type: ignore
+    print(settingsnadpis + jazy + bila)
+    print(cislovmenu + "[1]" + bila, "Čeština")
+    print(cislovmenu + "[2]" + bila, "Moravština")
+    print(cislovmenu + "[3]" + bila, "Hantec")
+    print(cislovmenu + "[4]" + bila, "Brainrot spachtoš")
+    print(cislovmenu + "[5]" + bila, "Skinhead English")
+    print(cislovmenu + "[6]" + bila, "English")
+    print(cislovmenu + "[7]" + bila, "Français")
+    print(cislovmenu + "[8]" + bila, "YN/Hood language")     
+    print(cislovmenu + "[9]" + bila, "Cajzlovština (přeloženo z Hantecu - Pražáčtina)") 
+    print(cislovmenu + "[10]" + zpatkybarva, zpatky + bila) #type: ignore
     vyber = input(vybrat)
     global jazyk
     if vyber == "1":
@@ -374,25 +407,34 @@ def jazyky():
 # Themes menu
 def themes():
     clear()
-    print(modra + jazy + bila)
-    print(zelena + "[1]" + bila, "Default")
-    print(zelena + "[2]" + zpatkybarva, zpatky + bila) #type: ignore
+    print(settingsnadpis + "Vybrat Theme" + bila)
+    print(cislovmenu + "[1]" + bila, "Default")
+    print(cislovmenu + "[2]" + bila, "Frutiger Aero")
+    print(cislovmenu + "[3]" + zpatkybarva, zpatky + bila) #type: ignore
     vyber = input(vybrat)
     global tema
     if vyber == "1":
-        jazyk = "default"
+        tema = "default"
         importtheme()
         print(zmenathemebarva + "Zmenil si theme na default" + bila)
         time.sleep(1)
         clear()
         ulozit_nastaveni()  # Uložení nastavení po změně jazyka
+        return main_menu()
+    if vyber == "2":
+        tema = "frutigeraero"
+        importtheme()
+        print(zmenathemebarva + "Zmenil si theme na frutigeraero" + bila)
+        time.sleep(1)
+        clear()
+        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
         return main_menu()  
-    elif vyber == "2":
+    elif vyber == "3":
         return main_menu()
     else:
         print(neumispsat)
         clear()
-        return jazyky()
+        return themes()
 
 #MAIN MENU ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -400,12 +442,12 @@ def main_menu():
     clear()
     while True:
         print(nadpiscarky + "===", nadpisbarva + nadpis, nadpiscarky + "===")
-        print(zelena + "[1]" + bila, kalkulacka)
-        print(zelena + "[2]" + bila, jazy)
-        print(zelena + "[3]" + bila, "Themes")
-        print(zelena + "[4]" + bila, nastaveni)
-        print(zelena + "[5]" + bila, "Credits")
-        print(zelena + "[6]" + zpatkybarva, zpatky + bila)
+        print(cislovmenu + "[1]" + bila, kalkulacka)
+        print(cislovmenu + "[2]" + bila, jazy)
+        print(cislovmenu + "[3]" + bila, "Themes")
+        print(cislovmenu + "[4]" + bila, nastaveni)
+        print(cislovmenu + "[5]" + bila, "Credits")
+        print(cislovmenu + "[6]" + zpatkybarva, zpatky + bila)
 
         choice = input(vybrat)
 
@@ -425,9 +467,9 @@ def main_menu():
             settings_menu()
         elif choice == "5":
             clear()
-            print(modra + "Credits" + bila)
+            print(creditsbarva + "Credits" + bila)
             print("Vytvořil: Rodrick - rodrickhmmm (Ten Ajťák) a Ocasníček - xtomasnemec (Ten Elektrikář)")
-            print(zelena + "https://github.com/rodrickhmmm/RovnomerPenez" + bila)
+            print(creditlink + "https://github.com/rodrickhmmm/RovnomerPenez" + bila)
             time.sleep(5)
             main_menu()
         elif choice == "6":
@@ -448,7 +490,7 @@ def calc():
     clear()
     global p1, p2
     print(nadpiscarky + "===", nadpisbarva + nadpis, nadpiscarky + "===")
-    p1 = input(modra + p1penize + bila)
+    p1 = input(p1penizebarva + p1penize + bila)
     p2 = input(player2barva + player2BezKoncovky + p2penizeovi + bila)
     print("")
 
@@ -478,11 +520,11 @@ def calc():
 
     # Finální zpráva, která zobrazí jestli ty nebo druhý hráč dává peníze
     if n1 > n2:
-        print(zelena + musisdat, vysledek, symbol, player2BezKoncovky + ovi + bila)
+        print(oznamenibarva + musisdat, vysledek, symbol, player2BezKoncovky + ovi + bila)
         input("Press Enter to continue...")
         clear()
     elif n1 < n2:
-        print(zelena + player2ek, timusidat, vysledek, symbol + bila)
+        print(oznamenibarva + player2ek, timusidat, vysledek, symbol + bila)
         input("Press Enter to continue...")
         clear()
     
@@ -491,7 +533,7 @@ def calc():
     if automatickynapsat == True and (p1 > p2):
         # timeout
         clear()
-        print(zelena + ckjmc)
+        print(oznamenibarva + ckjmc)
         otevritmc()
         time.sleep(0.5)
         clear()
@@ -507,7 +549,7 @@ def calc():
 
     elif automatickynapsat == True and (p1 < p2):
         clear()
-        print(zelena + ckjmc)
+        print(oznamenibarva + ckjmc)
         otevritmc()
         time.sleep(0.5)
         clear()
@@ -523,7 +565,7 @@ def calc():
     elif automatickynapsat == False and (p1 > p2):
         clear()
         print(mcprikaz)
-        print(zelena + "/pay " + str(player2nick), str(vysledek) + bila)
+        print(cmdbarva + "/pay " + str(player2nick), str(vysledek) + bila)
         input("Press Enter to continue...") 
         clear()
         main_menu()
@@ -540,7 +582,7 @@ def otazka1():
     clear()
     global automatickynapsat
     automatickynapsat = None  # Inicializace jako None
-    otazka = input(modra + chcescmddochatu + "[y/n]" + bila).strip().lower()
+    otazka = input(chcesmcbarva + chcescmddochatu + "[y/n]" + bila).strip().lower()
     clear()
     
     if otazka == "y":
@@ -563,7 +605,7 @@ def otazka1():
 def otazka2():
     clear()
     global player2nick
-    player2nick = input(modra + nick2 + bila)
+    player2nick = input(settingsotazka + nick2 + bila)
     ulozit_nastaveni()
     clear()
     settings_menu()
@@ -573,10 +615,10 @@ def otazka3():
     clear()
     nacist_nastaveni()
     global player2BezKoncovky, player2ek
-    player2BezKoncovky = input(modra + jmeno2bez + bila)
+    player2BezKoncovky = input(settingsotazka + jmeno2bez + bila)
 
     if jazyk not in ["en", "sh", "ho"]:
-        player2ek = input(modra + jmeno2 + bila)
+        player2ek = input(settingsotazka + jmeno2 + bila)
     else:
         player2ek = player2BezKoncovky
 
@@ -588,7 +630,7 @@ def otazka3():
 def otazka4():
     clear()
     global nazevvokna
-    nazevvokna = input(modra + minecraft + bila)
+    nazevvokna = input(settingsotazka + minecraft + bila)
     ulozit_nastaveni()
     clear()
     settings_menu()    
@@ -597,7 +639,7 @@ def otazka4():
 def otazka5():
     clear()
     global symbol
-    symbol = input(modra + zadejsymbol + bila)
+    symbol = input(settingsotazka + zadejsymbol + bila)
     ulozit_nastaveni()
     clear()
     settings_menu()

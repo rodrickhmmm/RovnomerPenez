@@ -6,6 +6,14 @@
   "zmenajazykabarva": "cervena",
   "zmenathemebarva": "cervena",
   "nadpisbarva": "zluta",
-  "player2barva": "zluta"
-  
+  "player2barva": "zluta",
+  "chcesmcbarva": "modra",
+  "creditsbarva": "modra",
+  "p1penizebarva": "modra",
+  "settingsnadpis": "modra",
+  "settingsotazka": "modra",
+  "cislovmenu": "zelena",
+  "creditlink": "zelena",
+  "oznamenibarva": "zelena",
+  "cmdbarva": "zelena"
 }
