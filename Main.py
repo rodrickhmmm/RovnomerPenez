@@ -61,7 +61,7 @@ def ulozit_nastaveni():
 
 # Funkce pro načtení nastavení z JSON souboru
 def nacist_nastaveni():
-    global automatickynapsat, jazyk, nazevvokna, player2BezKoncovky, player2ek, player2nick, symbol
+    global automatickynapsat, jazyk, nazevvokna, player2BezKoncovky, player2ek, player2nick, symbol, tema
     if os.path.exists("settings.json"):
         with open("settings.json", "r", encoding="utf-8") as file:
             nastaveni = json.load(file)
@@ -74,7 +74,7 @@ def nacist_nastaveni():
             symbol = nastaveni.get("symbol", "coin")
             tema = nastaveni.get("tema", "default_value")
     else:
-        input(errorbarva + "Nastavení nebylo nalezeno, vytvářím výchozí nastavení. Press enter to continue..." + bila)
+        input(cervena + "Nastavení nebylo nalezeno, vytvářím výchozí nastavení. Press enter to continue..." + bila)
         with open("settings.json", "w", encoding="utf-8") as file:
             json.dump(default_settings, file, ensure_ascii=False, indent=4)
         nacist_nastaveni()
@@ -190,7 +190,7 @@ def importtheme():
     oznamenibarva = "default_color"
     cmdbarva = "default_color"
 
-    with open("themes/" + theme + ".json", 'r', encoding='utf-8') as file:
+    with open("themes/" + tema + ".json", 'r', encoding='utf-8') as file:
         temata = json.load(file)
 
     # Použití výchozí hodnoty, pokud není klíč nalezen
