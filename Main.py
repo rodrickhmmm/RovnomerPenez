@@ -12,7 +12,7 @@ import re
 # KONFIGURACE BAREV 
 cervena = "\033[31;49;1m"
 zluta = "\033[33;49;1m"
-modra = '\033[34;49;1m'
+modra = "\033[34;49;1m"
 zelena = "\033[32;49;1m"
 bila = "\033[0m"
 
@@ -60,7 +60,7 @@ def ulozit_nastaveni():
         json.dump(nastaveni, file, ensure_ascii=False, indent=4)
 
 # Funkce pro načtení nastavení z JSON souboru
-def nacist_nastaveni():
+def import1():
     global automatickynapsat, jazyk, nazevvokna, player2BezKoncovky, player2ek, player2nick, symbol, tema
     if os.path.exists("settings.json"):
         with open("settings.json", "r", encoding="utf-8") as file:
@@ -77,17 +77,17 @@ def nacist_nastaveni():
         input(cervena + "Nastavení nebylo nalezeno, vytvářím výchozí nastavení. Press enter to continue..." + bila)
         with open("settings.json", "w", encoding="utf-8") as file:
             json.dump(default_settings, file, ensure_ascii=False, indent=4)
-        nacist_nastaveni()
+        import1()
 
 # Zavolá funkci nacist_nastaveni při spuštění
-nacist_nastaveni()
+import1()
 
 # clear screen
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 # importace jazyka/dialektu
-def importjazyka():
+def import1():
     global nadpis, zadejsymbol, nick2, minecraft, jmeno2, jmeno2bez, autonapsat, automatickynapsat, zpet, jazy, kalkulacka, p1penize, p2penizeovi, a, mocchudy, ty, matestejne, musisdat, ovi, timusidat, ckjmc, poslimechat, mcprikaz, chcescmddochatu, neumispsat, nenalezenookno, oknoaktivovano, nastaveni, vybrat, nenitu, zpatky, zmenajazyka
 
     # Inicializace proměnných
@@ -159,14 +159,14 @@ def importjazyka():
     nick2 = translations.get("nick2", "Zadej nick hráče 2: ")
     zadejsymbol = translations.get("zadejsymbol", "Zadej symbol měny: ")
 
-importjazyka()
+import1()
 
 
 # importace themes
 
 import json
 
-def importtheme():
+def import1():
     global nadpisbarva, errorbarva, nadpiscarky, settingstextvar, zpatkybarva, zmenajazykabarva, zmenathemebarva, player2barva
     global chcesmcbarva, creditsbarva, p1penizebarva, settingsnadpis, settingsotazka
     global cislovmenu, creditlink, oznamenibarva, cmdbarva
@@ -232,7 +232,7 @@ def importtheme():
     cmdbarva = globals().get(cmdbarva, cmdbarva)
 
 theme = "default"  # Nastav výchozí theme
-importtheme()
+import1()
 
 # deklarace var automatickynapsat
 
@@ -268,6 +268,12 @@ def otevritmc():
         print(errorbarva + "Chyba: Pokus o přístup k neexistujícímu oknu.")
     except Exception as e:
         print(f"Neočekávaná chyba: {e}")
+    
+# import
+def import1():
+    import1()
+    import1()
+    import1()
 
 # Menu nastavení -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 def settings_menu():
@@ -327,7 +333,7 @@ def jazyky():
     global jazyk
     if vyber == "1":
         jazyk = "cz"
-        importjazyka()
+        import1()
         print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
@@ -335,7 +341,7 @@ def jazyky():
         return main_menu()
     elif vyber == "2":
         jazyk = "mo"
-        importjazyka()
+        import1()
         print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
@@ -343,7 +349,7 @@ def jazyky():
         return main_menu()
     elif vyber == "3":
         jazyk = "br"
-        importjazyka()
+        import1()
         print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
@@ -351,7 +357,7 @@ def jazyky():
         return main_menu()
     elif vyber == "4":
         jazyk = "ba"
-        importjazyka()
+        import1()
         print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
@@ -359,7 +365,7 @@ def jazyky():
         return main_menu()
     elif vyber == "5":
         jazyk = "sh"
-        importjazyka()
+        import1()
         print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
@@ -367,7 +373,7 @@ def jazyky():
         return main_menu()
     elif vyber == "6":
         jazyk = "en"
-        importjazyka()
+        import1()
         print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
@@ -375,7 +381,7 @@ def jazyky():
         return main_menu()
     elif vyber == "7":
         jazyk = "fr"
-        importjazyka()
+        import1()
         print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
@@ -383,7 +389,7 @@ def jazyky():
         return main_menu()
     elif vyber == "8":
         jazyk = "ho"
-        importjazyka()
+        import1()
         print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
@@ -391,7 +397,7 @@ def jazyky():
         return main_menu()
     elif vyber == "9":
         jazyk = "pr"
-        importjazyka()
+        import1()
         print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
@@ -415,7 +421,7 @@ def themes():
     global tema
     if vyber == "1":
         tema = "default"
-        importtheme()
+        import1()
         print(zmenathemebarva + "Zmenil si theme na default" + bila)
         time.sleep(1)
         clear()
@@ -423,7 +429,7 @@ def themes():
         return main_menu()
     if vyber == "2":
         tema = "frutigeraero"
-        importtheme()
+        import1()
         print(zmenathemebarva + "Zmenil si theme na frutigeraero" + bila)
         time.sleep(1)
         clear()
@@ -613,7 +619,7 @@ def otazka2():
 # změnit jméno hráče 2
 def otazka3():
     clear()
-    nacist_nastaveni()
+    import1()
     global player2BezKoncovky, player2ek
     player2BezKoncovky = input(settingsotazka + jmeno2bez + bila)
 
