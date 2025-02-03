@@ -1,3 +1,6 @@
+# ** Plně automatický Rovnoměr peněz **
+toto byl pouze test toho, jestli rovnoměr peněz může být zcela automatický a číst z logu rovnou čísla. Tahle verze je docelá stará a není aktualizovaná, možná v budoucnu se to přidá jako funkce but.. who knows
+
 # **Rovnoměr peněz**
 
 Hrajete na Minecraft serveru s kamarádem, kde si chcete udržet stejný zůstatek peněz, ale nechce se vám pokaždé manuálně počítat rozdíl? 
