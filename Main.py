@@ -1,4 +1,3 @@
-
 # importuješ moduly
 import os
 import gettext
@@ -78,9 +77,8 @@ def import1():
         input(cervena + "Nastavení nebylo nalezeno, vytvářím výchozí nastavení. Press enter to continue..." + bila)
         with open("settings.json", "w", encoding="utf-8") as file:
             json.dump(default_settings, file, ensure_ascii=False, indent=4)
-        import1()
 
-# Zavolá funkci nacist_nastaveni při spuštění
+# Zavolá funkci import1 při spuštění
 import1()
 
 # clear screen
@@ -269,12 +267,6 @@ def otevritmc():
         print(errorbarva + "Chyba: Pokus o přístup k neexistujícímu oknu.")
     except Exception as e:
         print(f"Neočekávaná chyba: {e}")
-    
-# import
-def import1():
-    import1()
-    import1()
-    import1()
 
 # Menu nastavení -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 def settings_menu():
@@ -386,7 +378,7 @@ def jazyky():
         print(zmenajazykabarva + zmenajazyka + bila)
         time.sleep(1)
         clear()
-        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
+        ulozit_nastaveni() # Uložení nastavení po změně jazyka
         return main_menu()
     elif vyber == "8":
         jazyk = "ho"
@@ -426,16 +418,18 @@ def themes():
         print(zmenathemebarva + "Zmenil si theme na default" + bila)
         time.sleep(1)
         clear()
-        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
+        ulozit_nastaveni()
+        clear()
         return main_menu()
-    if vyber == "2":
+    elif vyber == "2":
         tema = "frutigeraero"
         import1()
         print(zmenathemebarva + "Zmenil si theme na frutigeraero" + bila)
         time.sleep(1)
         clear()
-        ulozit_nastaveni()  # Uložení nastavení po změně jazyka
-        return main_menu()  
+        ulozit_nastaveni()
+        clear()
+        return main_menu()
     elif vyber == "3":
         return main_menu()
     else:
