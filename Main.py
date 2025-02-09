@@ -274,7 +274,7 @@ def settings_menu():
     print(settingsnadpis + nastaveni + bila)
     print(cislovmenu + "[1]" + bila, autonapsat + ":", settingstextvar + str(automatickynapsat) + bila)
     print(cislovmenu + "[2]" + bila, "Player 2 Nick" + ":", settingstextvar + player2nick + bila)
-    print(cislovmenu + "[3]" + bila, "Player 2 Name" + ":", settingstextvar + player2BezKoncovky + " / " + player2ek + bila)
+    print(cislovmenu + "[3]" + bila, "Player 2 Name" + ":", settingstextvar + player2ek + " / " + player2BezKoncovky + bila)
     print(cislovmenu + "[4]" + bila, minecraft + ":", settingstextvar + nazevvokna + bila)
     print(cislovmenu + "[5]" + bila, "Symbol" + ":", settingstextvar + symbol + bila)
     print(cislovmenu + "[6]" + zpatkybarva, zpatky, bila)
@@ -616,12 +616,13 @@ def otazka3():
     clear()
     import1()
     global player2BezKoncovky, player2ek
-    player2BezKoncovky = input(settingsotazka + jmeno2bez + bila)
+    player2ek = input(settingsotazka + jmeno2 + bila)
 
     if jazyk not in ["en", "sh", "ho"]:
-        player2ek = input(settingsotazka + jmeno2 + bila)
+        player2BezKoncovky = input(settingsotazka + jmeno2bez + bila)
     else:
-        player2ek = player2BezKoncovky
+        player2BezKoncovky = player2ek
+
 
     ulozit_nastaveni()
     clear()
