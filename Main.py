@@ -33,10 +33,21 @@ default_settings = {
 
 # Převedení čísel z textu
 def extract_number_and_format(text):
+    # Odstraní všechny mezery z textu
+    text = text.replace(" ", "")
+    
+    # Zkontroluje, zda je text celé číslo
     if text.isdigit():
         return int(text)
-
-    match = re.search(r'(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)', text)
+    
+    # Zkontroluje, zda je text desetinné číslo
+    try:
+        return float(text)
+    except ValueError:
+        pass
+    
+    # Použije regulární výraz k extrahování čísla
+    match = re.search(r'(\d{1,3}(?:,\d{3})*(?:\.\d{2})?|\d+\.\d+)', text)
     if match:
         extracted_number = match.group(1).replace(",", "")
         return float(extracted_number) if '.' in extracted_number else int(extracted_number)
@@ -409,7 +420,8 @@ def themes():
     print(settingsnadpis + "Vybrat Theme" + bila)
     print(cislovmenu + "[1]" + bila, "Default")
     print(cislovmenu + "[2]" + bila, "Frutiger Aero")
-    print(cislovmenu + "[3]" + zpatkybarva, zpatky + bila) #type: ignore
+    print(cislovmenu + "[3]" + bila, "Comrade")
+    print(cislovmenu + "[4]" + zpatkybarva, zpatky + bila) #type: ignore
     vyber = input(vybrat)
     global tema
     if vyber == "1":
@@ -431,6 +443,15 @@ def themes():
         clear()
         return main_menu()
     elif vyber == "3":
+        tema = "prosoudruhy"
+        import1()
+        print(zmenathemebarva + "Zmenil si theme na soudružský!" + bila)
+        time.sleep(1)
+        clear()
+        ulozit_nastaveni()
+        clear()
+        return main_menu()
+    elif vyber == "4":
         return main_menu()
     else:
         print(neumispsat)
@@ -487,6 +508,8 @@ def main_menu():
 # Uvodni zprava a zadani promennych uzivatelem
 # Tj. kalkulačka
 
+debug = False
+
 def calc():
     clear()
     global p1, p2
@@ -498,6 +521,13 @@ def calc():
     # Vyfiltruje z textu čísla 
     n1 = extract_number_and_format(p1)
     n2 = extract_number_and_format(p2)
+    
+    if debug == True:
+        print(n1)
+        print(n2)
+    else:
+        pass
+
 
     if n1 is None or n2 is None:
         print(errorbarva + "Error: Unable to extract valid numbers from inputs." + bila)
@@ -531,7 +561,7 @@ def calc():
     
 
     # Proces, který napíše do chatu příkaz nebo request budto jo nebo nn
-    if automatickynapsat == True and (p1 > p2):
+    if automatickynapsat == True and (n1 > n2):
         # timeout
         clear()
         print(oznamenibarva + ckjmc)
@@ -548,7 +578,7 @@ def calc():
         pyautogui.press("enter")
         main_menu()
 
-    elif automatickynapsat == True and (p1 < p2):
+    elif automatickynapsat == True and (n1 < n2):
         clear()
         print(oznamenibarva + ckjmc)
         otevritmc()
@@ -563,7 +593,7 @@ def calc():
         pyautogui.press("enter")
         clear()
 
-    elif automatickynapsat == False and (p1 > p2):
+    elif automatickynapsat == False and (n1 > n2):
         clear()
         print(mcprikaz)
         print(cmdbarva + "/pay " + str(player2nick), str(vysledek) + bila)
@@ -571,7 +601,7 @@ def calc():
         clear()
         main_menu()
 
-    elif automatickynapsat == False and (p1 < p2):
+    elif automatickynapsat == False and (n1 < n2):
         clear()
         main_menu()
         
